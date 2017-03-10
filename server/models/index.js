@@ -11,25 +11,30 @@ module.exports = {
 
     },
 
-    // a function which produces all the schedule items for a unique user
     post: function () {} // a function which can be used to insert a new scheduled medicine into the database
   },
 
   schedules: {
     get: function () {
-      console.log('GET IN MODEL');
       return knex.select().from('schedules')
         .then(function (response) {
-          console.log('RES', response);
           return response;
         });
-
     },
 
     post: function (params, callback) {
+      knex.insert({name: params[0]}).into('meds')
+        .then(function(id) {
+          knex.insert({time: params[1], meds_id: id}).into('schedules')
+          .catch(function(err) {
+            callback(err);
+          })
+          .then(function(id) {
+            callback(null, id);
+          })
+        })
+    }
+  }
+}
 
-      console.log('POST IN MODEL');
 
-    } // a function which can be used to insert a new scheduled medicine into the database
-  },
-};
