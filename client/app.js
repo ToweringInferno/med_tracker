@@ -1,27 +1,38 @@
 angular.module('medTracker', [
 	'medTracker.services',
-	'medTracker.auth',
+	// 'medTracker.auth',
 	'medTracker.schedule',
 	'ngRoute'
 ])
 
-.config(function($routeProvider, $httpProvider) {
+.config(function($routeProvider, /*$httpProvider*/) {
 	$routeProvider
-	.when() // fill in
-	.when() // fill in
-	.when() // fill in
-	.otherwise() // fill in
+	.when('/login', {
+		templateUrl: 'views/login.html',
+		controller: 'AuthController'
+	})
+	.when('/signup', {
+		templateUrl: 'views/signup.html',
+		controller: 'AuthController'
+	})
+	.when('/schedule', {
+		templateUrl: 'views/schedule.html',
+		controller: 'ScheduleController'
+	})
+	.otherwise({
+		redirectTo: '/schedule'
+	})
 
-	$httpProvider.interceptors.push(/*----*/);
+	// $httpProvider.interceptors.push(/*----*/);
 })
 
-.factory( /*----*/, function(/*----*/) {
+// .factory( /*----*/, function(/*----*/) {
 	/*--Authentication stuff--*/
-})
+// })
 
-.run(function(/*--dependencies--*/) {
+// .run(function(/*--dependencies--*/) {
 	/*--more stuff--*/
-});
+// });
 
 
 
