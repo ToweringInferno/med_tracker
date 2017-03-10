@@ -33,6 +33,29 @@ module.exports = {
             callback(null, id);
           })
         })
+    },
+
+    delete: function(params, callback) {
+      knex('schedules').where('time', params[0]).del()
+        .catch(function(err) {
+            callback(err);
+        })
+        .then(function(count) {
+          console.log('DELETED ', count);
+          callback(null, count);
+        })
+    },
+
+    put: function(params, callback) {
+      knex('schedules').where('time', params[0])
+        .update({time: params[1]})
+          .catch(function(err) {
+              callback(err);
+          })
+          .then(function(count) {
+            console.log('UPDATED', count);
+            callback(null, count);
+          })
     }
   }
 }
