@@ -50,6 +50,8 @@ knex.schema.hasTable('schedules').then(function(exists) {
   }
 });
 
+module.exports = knex;
+
 
 // var connection = mysql.createConnection({
 //   user: 'root',
