@@ -31,7 +31,7 @@ module.exports = {
     },
 
     post: function (params, callback) {
-      knex.insert({name: params[0]}).into('meds')
+      knex.insert({medname: params[0]}).into('meds')
         .then(function(id) {
           knex.insert({time: params[1], meds_id: id}).into('schedules')
           .catch(function(err) {
