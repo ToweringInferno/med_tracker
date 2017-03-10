@@ -5,14 +5,15 @@ angular.module('medTracker.schedule', [])
 	$scope.data = {};
 
 	var initializeReminders = function() {
-		Reminders.getReminders()
+		Reminders.getAll()
 		.then(function(reminders) {
 			$scope.data.reminders = reminders;
 		})
 		.catch(function(error) {
 			console.error(error)
 		})
-	}
+	};
+	
 	initializeReminders();
 
 });

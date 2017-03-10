@@ -19,6 +19,10 @@ angular.module('medTracker', [
 		templateUrl: 'views/schedule.html',
 		controller: 'ScheduleController'
 	})
+	.when('/input', {
+		templateUrl: 'views/input.html',
+		controller: 'InputController'
+	})
 	.otherwise({
 		redirectTo: '/schedule'
 	})

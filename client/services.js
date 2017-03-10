@@ -2,30 +2,50 @@ angular.module('medTracker.services', [])
 
 .factory('Reminders', function($http) {
 
-	var getReminders = function() {
+	var getAll = function() {
 		return $http({
 			method: 'GET',
-			url: '/api/reminders'
+			url: '/'
 		})
 		.then(function(res) {
 			return res.data;
 		})
 	};
 
-	var addReminder = function(reminder) {
+	var addOne = function(reminder) {
 		return $http({
 			method: 'POST',
-			url: 'api/reminders',
+			url: '/',
 			data: reminder
 		})
 	};
-	
+
+	var deleteOne = function(reminder) {
+		return $http({
+			method: 'DELETE',
+			url: '/',
+			data: reminder
+		})
+	};
+
+	var updateOne = function(reminder) {
+		return $http({
+			method: 'PUT',
+			url: '/',
+			data: reminder
+		})
+	};	
+
 	return {
 		getReminders: getReminders,
-		addReminder: addReminder
+		addReminder: addReminder,
+		deleteOne: deleteOne,
+		updateOne: updateOne
 	}
 })
 
-.factory('Auth', function($http) {
+.factory('Auth', function($http, $location, $window) {
 	//
 });
+
+

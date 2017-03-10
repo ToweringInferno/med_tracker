@@ -1,18 +1,13 @@
 <div id="schedule">
 
 	<h1>Schedule</h1>
-	<form name='scheduleForm' ng-submit='scheduleMed()'>
-		<input type='text' ng-model='medication' placeholder='Enter medication' />
-		<input type='text' ng-model='time' placeholder='Enter the time you take it' />	
-	</form>
-
 	<input type='text' ng-model='search' placeholder='search for a reminder'>
 
 	<div class='reminders'>
 		<div class='reminder' ng-repeat="reminder in data.reminders' | filter:search | orderBy: reminder.time">
 			<div>
-				<span>{{data.reminder.time}}</span>
-				<span>{{data.reminder.medname}}</span>
+				<div>{{ reminder.time }}</div>
+				<div>{{ reminder.medname }}</div>
 			</div>
 		</div>
 
