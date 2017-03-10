@@ -4,7 +4,7 @@
   "description": "tracks_meds",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server/server.js",
+    "start": "nodemon ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,8 +20,10 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "knex": "^0.12.7",
     "morgan": "^1.8.1",
     "mysql": "^2.13.0",
+    "nodemon": "^1.11.0",
     "path": "^0.12.7"
   }
 }
