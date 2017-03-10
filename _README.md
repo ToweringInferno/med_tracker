@@ -7,6 +7,8 @@
   - __Product Owner__: teamMember
   - __Scrum Master__: teamMember
   - __Development Team Members__: teamMember, teamMember
+  - __Snack Master__: teamMember
+  - __Fight Master__: teamMember
 
 ## Table of Contents
 
