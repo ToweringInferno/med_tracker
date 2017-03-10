@@ -11,7 +11,15 @@ module.exports = {
 
     },
 
-    post: function () {} // a function which can be used to insert a new scheduled medicine into the database
+    post: function (params, callback) {
+      knex.insert({username: params[0], password: params[1]}).into('users')
+        .catch(function(err) {
+          callback(err);
+        })
+        .then(function(id) {
+          callback(null, count);
+        })
+    }
   },
 
   schedules: {
