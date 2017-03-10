@@ -2,8 +2,9 @@
   "name": "med_tracker",
   "version": "1.0.0",
   "description": "tracks_meds",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/ToweringInferno/med_tracker/issues"
   },
-  "homepage": "https://github.com/ToweringInferno/med_tracker#readme"
+  "homepage": "https://github.com/ToweringInferno/med_tracker#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "mysql": "^2.13.0",
+    "path": "^0.12.7"
+  }
 }
