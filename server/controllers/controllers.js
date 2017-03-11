@@ -55,4 +55,15 @@ module.exports = {
       })
     }
   }
+
+  // api: {
+
+  //   get: function(req, res) {
+  //     models.api.get()
+  //       .then(function(drugs) {
+  //         res.send(drugs);
+  //       })
+  //   }
+
+  // }
 };
