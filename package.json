@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ToweringInferno/med_tracker#readme",
   "dependencies": {
+    "angular": "^1.6.3",
+    "angular-ui-router": "^0.4.2",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "knex": "^0.12.7",
