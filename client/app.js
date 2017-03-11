@@ -1,34 +1,40 @@
-angular.module('medTracker', [
+var app = angular.module('medTracker', [
 	'medTracker.services',
-	// 'medTracker.auth',
+	'medTracker.auth',
 	'medTracker.schedule',
-	'ngRoute'
-])
+	'ui-router'
+]);
 
-.config(function($routeProvider, /*$httpProvider*/) {
-	$routeProvider
-	.when('/login', {
-		templateUrl: 'views/login.html',
-		controller: 'AuthController'
-	})
-	.when('/signup', {
-		templateUrl: 'views/signup.html',
-		controller: 'AuthController'
-	})
-	.when('/schedule', {
-		templateUrl: 'views/schedule.html',
-		controller: 'ScheduleController'
-	})
-	.when('/input', {
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+  $stateProvider
+  .state('login', {
+      url: '/login',
+      templateUrl: 'views/login.html',
+      controller: 'AuthController'
+  })
+  .state('signup', {
+      url: '/signup',
+      templateUrl: 'views/signup.html',
+      controller: 'AuthController'
+  })
+   .state('schedule', {
+      url: '/schedule',
+      templateUrl: 'views/schedule.html',
+      controller: 'ScheduleController'
+  })
+   .state('input', {
+   	url: 'input',
 		templateUrl: 'views/input.html',
 		controller: 'InputController'
-	})
-	.otherwise({
-		redirectTo: '/schedule'
-	})
+	});
+
+  $urlRouterProvider.otherwise('schedule');
+}]);
+
 
 	// $httpProvider.interceptors.push(/*----*/);
-})
+
 
 // .factory( /*----*/, function(/*----*/) {
 	/*--Authentication stuff--*/

@@ -1,21 +1,45 @@
 <!-- Need CSS File -->
 <!DOCTYPE html>
 
-<html ng-app='medTracker'>
+<html>
   <head>
-    <meta charset="utf-8" />  
+
     <title>Your Medicine Tracker</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+
+    <meta charset="utf-8" />
+
     <!-- need css file -->
   </head>
 
-  <body>
+  <body  ng-app='medTracker'>
     <h1>Med Tracker</h1>
-    <!-- ng-view is where templates will be loaded into -->
-    <div ng-view></div>
+
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="schedule"></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="schedule">All Reminders</a></li>
+            <li><a ui-sref="input">Add New Reminder</a></li>
+        </ul>
+      </nav>
+
+    <!-- RENDERS VIEWS -->
+    <ui-view></ui-view>
+
     <!-- insert script tags -->
     <script src="auth.js"></script>
+    <script src="input.js"></script>
     <script src="schedule.js"></script>
     <script src="services.js"></script>
     <script src="app.js"></script>
+
+
   </body>
 </html>
