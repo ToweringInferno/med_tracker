@@ -17,6 +17,8 @@ module.exports = function (app, express) {
 
   app.put('/', controllers.schedules.put);
 
+  // app.get('/api', controllers.api.get);
+
 
   // app.post('/signup', userController.signup);
   // app.post('/login', userController.login);
