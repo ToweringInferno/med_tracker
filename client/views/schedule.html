@@ -4,7 +4,7 @@
 	<input type='text' ng-model='search' placeholder='search for a reminder'>
 
 	<div class='reminders'>
-		<div class='reminder' ng-repeat="reminder in data.reminders' | filter:search | orderBy: reminder.time">
+		<div class='reminder' ng-repeat="reminder in data.reminders | filter:search | orderBy: reminder.time">
 			<div>
 				<div>{{ reminder.time }}</div>
 				<div>{{ reminder.medname }}</div>
