@@ -1,21 +1,23 @@
 angular.module('medTracker.services', [])
 
-.factory('Reminders', function($http) {
+.factory('reminders', function($http) {
 
 	var getAll = function() {
+		console.log('GETTING ALL');
 		return $http({
 			method: 'GET',
-			url: '/'
+			url: '/schedules'
 		})
 		.then(function(res) {
-			return res.data;
+			console.log('RESPONSE'. res);
+			return res;
 		})
 	};
 
 	var addOne = function(reminder) {
 		return $http({
 			method: 'POST',
-			url: '/',
+			url: '/schedules',
 			data: reminder
 		})
 	};
@@ -23,7 +25,7 @@ angular.module('medTracker.services', [])
 	var deleteOne = function(reminder) {
 		return $http({
 			method: 'DELETE',
-			url: '/',
+			url: '/schedules',
 			data: reminder
 		})
 	};
@@ -31,21 +33,21 @@ angular.module('medTracker.services', [])
 	var updateOne = function(reminder) {
 		return $http({
 			method: 'PUT',
-			url: '/',
+			url: '/schedules',
 			data: reminder
 		})
-	};	
+	};
 
 	return {
-		getReminders: getReminders,
-		addReminder: addReminder,
+		getAll: getAll,
+		addOne: addOne,
 		deleteOne: deleteOne,
 		updateOne: updateOne
 	}
-})
-
-.factory('Auth', function($http, $location, $window) {
-	//
 });
+
+// .factory('Auth', function($http, $location, $window) {
+// 	//
+// });
 
 

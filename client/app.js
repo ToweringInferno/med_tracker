@@ -2,29 +2,30 @@ var app = angular.module('medTracker', [
 	'medTracker.services',
 	'medTracker.auth',
 	'medTracker.schedule',
-	'ui-router'
+  'medTracker.input',
+	'ui.router'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
   .state('login', {
-      url: '/login',
-      templateUrl: 'views/login.html',
-      controller: 'AuthController'
+    url: '/login',
+    templateUrl: 'views/login.html',
+    controller: 'AuthController'
   })
   .state('signup', {
-      url: '/signup',
-      templateUrl: 'views/signup.html',
-      controller: 'AuthController'
+    url: '/signup',
+    templateUrl: 'views/signup.html',
+    controller: 'AuthController'
   })
-   .state('schedule', {
-      url: '/schedule',
-      templateUrl: 'views/schedule.html',
-      controller: 'ScheduleController'
+  .state('schedule', {
+    url: '/schedule',
+    templateUrl: 'views/schedule.html',
+    controller: 'ScheduleController'
   })
-   .state('input', {
-   	url: 'input',
+ .state('input', {
+   	url: '/input',
 		templateUrl: 'views/input.html',
 		controller: 'InputController'
 	});

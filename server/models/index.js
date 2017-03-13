@@ -6,6 +6,7 @@ module.exports = {
     get: function () {
       return knex.select().from('users')
         .then(function (response) {
+          console.log('USERS RES');
           return response;
         });
 
@@ -24,10 +25,14 @@ module.exports = {
 
   schedules: {
     get: function () {
-      return knex.select().from('schedules')
+      return knex('schedules')
+        .join('meds', 'schedules.meds_id', '=', 'meds.id')
+        .select('schedules.id', 'meds.medname', 'schedules.time')
         .then(function (response) {
+          console.log('GET RESPONSE', response);
           return response;
-        });
+        })
+
     },
 
     post: function (params, callback) {

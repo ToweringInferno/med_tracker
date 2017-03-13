@@ -23,6 +23,7 @@ module.exports = {
 
   schedules: {
     get: function (req, res) {
+      console.log('GETTING SCHEDULES');
       models.schedules.get()
       .then(function(schedules) {
         res.send(schedules);

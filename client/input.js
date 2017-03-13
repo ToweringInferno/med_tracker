@@ -1,18 +1,45 @@
-angular.module('medTracker.input', [])
+angular.module('medTracker.input', ['medTracker.services'])
 
-.controller('InputController', function($scope, $location, Reminders) {
+.controller('InputController', [
+	'$scope',
+	'$location',
+	'reminders',
 
-	$scope.reminder = {};
+ function($scope, $location, reminders) {
 
-	$scope.addReminder = function() {
-		Reminders.addOne($scope.reminder)
-		.then(function () {
-			$location.path('/');
-		})
-		.catch(function(error) {
-			console.error(error);
-		});
-	};
+  $scope.addReminder = function () {
+
+  	var newReminder = {
+        medname: $scope.reminder.medname,
+        time: $scope.reminder.time
+      };
+
+      console.log('NEW REMINDER', newReminder);
+
+      reminders.addOne(newReminder)
+        .then(function(res) {
+        	console.log('ADDED ONE');
+        	$location.path('/');
+        })
+        .catch(function(err) {
+        	console.error(err);
+        });
+
+        $scope.reminder.medname = '';
+        $scope.reminder.time = '';
+  };
+
+
+
+	// $scope.addReminder = function() {
+	// 	reminders.addOne($scope.reminder)
+	// 	.then(function () {
+	// 		$location.path('/');
+	// 	})
+	// 	.catch(function(error) {
+	// 		console.error(error);
+	// 	});
+	// };
 
 	// build out delete function
 	// $scope.deleteReminder = function(){};
@@ -20,4 +47,4 @@ angular.module('medTracker.input', [])
 	// build out update function
 	// $scope.updateReminder = function(){};
 
-});
+}]);
