@@ -1,19 +1,22 @@
-angular.module('medTracker.schedule', [])
+angular.module('medTracker.schedule', ['medTracker.services'])
 
-.controller('ScheduleController', function($scope, Reminders) {
-	/*----*/
-	$scope.data = {};
+.controller('ScheduleController', [
+	'$scope',
+	'reminders',
+	function($scope, reminders) {
 
-	var initializeReminders = function() {
-		Reminders.getAll()
-		.then(function(reminders) {
-			$scope.data.reminders = reminders;
-		})
-		.catch(function(error) {
-			console.error(error)
-		})
+	$scope.allReminders = {};
+
+	$scope.getReminders = function() {
+		reminders.getAll()
+			.then(function(reminders) {
+				$scope.allReminders.reminders = reminders;
+			})
+			.catch(function(error) {
+				console.error(error)
+			})
 	};
-	
-	initializeReminders();
 
-});
+	$scope.getReminders();
+
+}]);
