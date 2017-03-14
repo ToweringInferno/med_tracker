@@ -15,6 +15,7 @@ angular.module('medTracker.services', [])
 	};
 
 	var addOne = function(reminder) {
+		console.log('POST reminder', reminder);
 		return $http({
 			method: 'POST',
 			url: '/schedules',
@@ -23,6 +24,7 @@ angular.module('medTracker.services', [])
 	};
 
 	var deleteOne = function(reminder) {
+		console.log('DELETE reminder', reminder);
 		return $http({
 			method: 'DELETE',
 			url: '/schedules',
