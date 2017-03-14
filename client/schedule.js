@@ -21,13 +21,11 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
 	$scope.remove = function($index) {
 
-		var deleteObj = {
-			time: $scope.allReminders.reminders.data[$index].time
-		};
+		var deleteTarget = $scope.allReminders.reminders.data[$index].time;
 
-		console.log('DELETING', {time: $scope.allReminders.reminders.data[$index].time});
+		console.log('DELETING', deleteTarget);
 
-		reminders.deleteOne(deleteObj)
+		reminders.deleteOne({time: deleteTarget})
 		  .then(function(response) {
 		  	console.log('DELETE RESPONSE', response);
 		  })
@@ -38,11 +36,11 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
 	$scope.update = function($index) {
 
-		console.log('SCOPE NEW TIME', $scope.newTime)
+		console.log('SCOPE NEW TIME', $scope.newtime)
 
 		var updateObj = {
 			time: $scope.allReminders.reminders.data[$index].time,
-			newTime: $scope.newTime
+			newTime: $scope.newtime
 		};
 
 
@@ -56,7 +54,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 				console.error(error)
 			})
 
-			$scope.newTime = '';
+			$scope.newtime = '';
 	};
 
 	$scope.flag = false;
