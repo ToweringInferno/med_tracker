@@ -49,6 +49,7 @@ module.exports = {
     },
 
     put: function(req, res) {
+      console.log('UPDATE REQ BODY', req.body);
       var params = [req.body.time, req.body.newTime];
       models.schedules.put(params, function (err, count) {
         if (err) {throw err}
