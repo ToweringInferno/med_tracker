@@ -4,13 +4,17 @@
 	<input type='text' ng-model='search' placeholder='Search by Medicine'>
 
 	<div class='reminders'>
-		<div class='reminder' ng-repeat="reminder in allReminders.reminders.data | filter:search">
-			<div>
-				<div>{{ reminder.time }}</div>
-				<div>{{ reminder.medname }}</div>
-			</div>
-		</div>
+		<div class='reminder text-center' ng-repeat="reminder in allReminders.reminders.data | filter:search">
+        <form>
+					<div class="d-inline form-group">{{ reminder.time }} <button ng-click='editHandler()' ng-hide='flag'>Edit</button>
 
-	</div>
+	      		  <input type='text' ng-show='flag' ng-model='newtime' placeholder="New Time">
+	      		  <button ng-show='flag' ng-click='update($index)'>Update</button>
+	      	</div>
+					<div class="d-inline form-group">{{ reminder.medname }}<button ng-click="remove($index)">x </button></div>
+
+			  </form>
+			</div>
+	  </div>
 
 </div>

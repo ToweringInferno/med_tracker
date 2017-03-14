@@ -39,6 +39,7 @@ module.exports = {
     },
 
     delete: function(req, res) {
+      console.log('delete request', req.body);
       var params = [req.body.time];
       models.schedules.delete(params, function (err, count) {
         if (err) {throw err}
