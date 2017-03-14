@@ -34,13 +34,13 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 			})
 	};
 
-	$scope.update = function($index) {
+	$scope.update = function($index, newtime) {
 
 		console.log('SCOPE NEW TIME', $scope.newtime)
 
 		var updateObj = {
 			time: $scope.allReminders.reminders.data[$index].time,
-			newTime: $scope.newtime
+			newTime: newtime
 		};
 
 
