@@ -6,7 +6,11 @@ var app = angular.module('medTracker', [
 	'ui.router'
 ]);
 
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+app.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  '$httpProvider',
+ function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider
   .state('login', {
@@ -22,31 +26,40 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   .state('schedule', {
     url: '/schedule',
     templateUrl: 'views/schedule.html',
-    controller: 'ScheduleController'
+    controller: 'ScheduleController',
+    authenticate: true
   })
  .state('input', {
    	url: '/input',
 		templateUrl: 'views/input.html',
-		controller: 'InputController'
+		controller: 'InputController',
+    authenticate: true
 	});
 
   $urlRouterProvider.otherwise('schedule');
-}]);
 
+  // $httpProvider.interceptors.push('AttachTokens');
+}])
 
-	// $httpProvider.interceptors.push(/*----*/);
+// .factory('AttachTokens', function ($window) {
 
-
-// .factory( /*----*/, function(/*----*/) {
-	/*--Authentication stuff--*/
+//    var attach = {
+//     request: function (object) {
+//       var jwt = $window.localStorage.getItem('com.medTracker');
+//       if (jwt) {
+//         object.headers['x-access-token'] = jwt;
+//       }
+//       object.headers['Allow-Control-Allow-Origin'] = '*';
+//       return object;
+//     }
+//   };
+//   return attach;
 // })
 
-// .run(function(/*--dependencies--*/) {
-	/*--more stuff--*/
+// .run(function ($rootScope, $location, Auth) {
+//   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
+//     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
+//       $location.path('/login');
+//     }
+//   });
 // });
-
-
-
-
-
-

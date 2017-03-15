@@ -29,22 +29,4 @@ angular.module('medTracker.input', ['medTracker.services'])
         $scope.reminder.time = '';
   };
 
-
-
-	// $scope.addReminder = function() {
-	// 	reminders.addOne($scope.reminder)
-	// 	.then(function () {
-	// 		$location.path('/');
-	// 	})
-	// 	.catch(function(error) {
-	// 		console.error(error);
-	// 	});
-	// };
-
-	// build out delete function
-	// $scope.deleteReminder = function(){};
-
-	// build out update function
-	// $scope.updateReminder = function(){};
-
 }]);
