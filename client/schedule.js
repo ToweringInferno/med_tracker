@@ -93,6 +93,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 			  		  reminders.getInteraction(firstCode, secondCode)
 						    .then(function(res) {
 						    	console.log('INTERACTION RES', res.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].description);
+						    	$scope.interaction = res.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].description;
 						    })
 						    .catch(function(error) {
 								console.error(error)
