@@ -3,14 +3,15 @@ var controllers = require('./controllers/controllers.js');
 
 module.exports = function (app, express) {
 
-  app.get('/users', controllers.users.get);
-  app.get('/signedin', controllers.checkAuth);  
+  // app.get('/users', controllers.users.get);
+
+  app.get('/signedin', controllers.users.checkAuth);
 
   // app.get('/signup', controllers.signup.get);
-  app.post('/signup', controllers.signup);
+  app.post('/signup', controllers.users.signup);
 
   // app.get('/login', controllers.login.get);
-  app.post('/login', controllers.login);  
+  app.post('/login', controllers.users.login);
 
   app.get('/schedules', controllers.schedules.get);
 
