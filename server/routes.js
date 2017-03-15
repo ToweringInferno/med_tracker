@@ -11,7 +11,7 @@ module.exports = function (app, express) {
 
   app.post('/schedules', controllers.schedules.post);
 
-  app.post('/delete', controllers.schedules.delete);
+  app.delete('/schedules', controllers.schedules.delete);
 
   app.put('/schedules', controllers.schedules.put);
 

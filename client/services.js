@@ -40,11 +40,28 @@ angular.module('medTracker.services', [])
 		})
 	};
 
+  var fetchCode = function(drugName) {
+    return $http({
+      method: 'GET',
+      url: 'https://rxnav.nlm.nih.gov/REST/rxcui?name=' + drugName
+    })
+  };
+
+  var getInteraction = function(first, second) {
+    console.log('https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=' + first + '+' + second);
+    return $http({
+      method: 'GET',
+      url: 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=' + first + '+' + second
+    })
+  };
+
 	return {
 		getAll: getAll,
 		addOne: addOne,
 		deleteOne: deleteOne,
-		updateOne: updateOne
+		updateOne: updateOne,
+    fetchCode: fetchCode,
+    getInteraction: getInteraction
 	}
 })
 

@@ -13,6 +13,14 @@
 	      		</div>
 	      	</div>
 					<div class="d-inline form-group">{{ reminder.medname }}<button ng-click="remove($index)">x</button></div>
+
+					<div> <label>Compare with:
+					<select ng-model="selectedDrug" ng-options="medname for medname in allMeds">
+					</select>
+					<button ng-click="makeComparison(selectedDrug, reminder.medname)">Get Interaction</button>
+					</label>
+					{{selectedDrug}}
+					</div>
 			  </form>
 			</div>
 	  </div>
