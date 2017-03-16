@@ -26,14 +26,12 @@ app.config([
   .state('schedule', {
     url: '/schedule',
     templateUrl: 'views/schedule.html',
-    controller: 'ScheduleController',
-    authenticate: true
+    controller: 'ScheduleController'
   })
  .state('input', {
    	url: '/input',
 		templateUrl: 'views/input.html',
-		controller: 'InputController',
-    authenticate: true
+		controller: 'InputController'
 	});
 
   $urlRouterProvider.otherwise('schedule');

@@ -1,32 +1,49 @@
 angular.module('medTracker.auth', ['medTracker.services'])
 
-.controller('AuthController', function($scope, Auth) {
+.controller('AuthController', [
+  '$scope',
+  '$location',
+  'Auth',
+  function($scope, $location, Auth) {
 
-  $scope.user = {};
+  $scope.login = function () {
 
-  $scope.signin = function () {
-    Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.medTracker', token);
-        $location.path('/schedule');
+    var user = {
+      username: $scope.user.username,
+      password: $scope.user.password
+    }
+
+    Auth.login(user)
+      .then(function (res) {
+        console.log('SIGNED IN', res);
+        $location.path('/');
       })
       .catch(function (error) {
         console.error(error);
       });
+
+      $scope.username = '';
+      $scope.password = '';
   };
 
     $scope.signup = function () {
-    Auth.signup($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.medTracker', token);
-        $location.path('/schdule');
+
+    var user = {
+      username: $scope.user.username,
+      password: $scope.user.password
+    }
+
+
+    Auth.signup(user)
+      .then(function (res) {
+        console.log('CREATED NEW USER', res);
       })
       .catch(function (error) {
         console.error(error);
       });
+
+      $scope.user.username = '';
+      $scope.user.password = '';
   };
 
-});
-
-// create signup function
-// create login function
+}]);

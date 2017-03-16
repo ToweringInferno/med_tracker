@@ -1,27 +1,26 @@
 var controllers = require('./controllers/controllers.js');
+var utilities = require('./utilities.js');
 
 
 module.exports = function (app, express) {
 
-  // app.get('/users', controllers.users.get);
 
-  app.get('/signedin', controllers.users.checkAuth);
 
-  // app.get('/signup', controllers.signup.get);
   app.post('/signup', controllers.users.signup);
-
-  // app.get('/login', controllers.login.get);
   app.post('/login', controllers.users.login);
-
   app.get('/logout', controllers.users.logout);
 
-  app.get('/schedules', controllers.schedules.get);
 
-  app.post('/schedules', controllers.schedules.post);
+  app.get('/schedules', utilities.activeSession, controllers.schedules.get);
+  // app.get('/', utilities.activeSession, controllers.schedules.get);
 
-  app.post('/delete', controllers.schedules.delete);
+  app.post('/schedules', utilities.activeSession, controllers.schedules.post);
 
-  app.put('/schedules', controllers.schedules.put);
+  app.post('/delete', utilities.activeSession, controllers.schedules.delete);
+
+  app.put('/schedules', utilities.activeSession, controllers.schedules.put);
+
+  app.get('/*', utilities.activeSession, controllers.schedules.get);
 
   // app.get('/api', controllers.api.get);
 

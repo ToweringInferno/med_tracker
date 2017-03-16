@@ -3,9 +3,9 @@ angular.module('medTracker.input', ['medTracker.services'])
 .controller('InputController', [
 	'$scope',
 	'$location',
-	'reminders',
+	'Reminders',
 
- function($scope, $location, reminders) {
+ function($scope, $location, Reminders) {
 
   $scope.addReminder = function () {
 
@@ -16,7 +16,7 @@ angular.module('medTracker.input', ['medTracker.services'])
 
       console.log('NEW REMINDER', newReminder);
 
-      reminders.addOne(newReminder)
+      Reminders.addOne(newReminder)
         .then(function(res) {
         	console.log('ADDED ONE');
         	$location.path('/');
