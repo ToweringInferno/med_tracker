@@ -13,6 +13,8 @@ module.exports = function (app, express) {
   // app.get('/login', controllers.login.get);
   app.post('/login', controllers.users.login);
 
+  app.get('/logout', controllers.users.logout);
+
   app.get('/schedules', controllers.schedules.get);
 
   app.post('/schedules', controllers.schedules.post);
