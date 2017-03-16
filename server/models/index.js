@@ -14,29 +14,34 @@ module.exports = {
         });
     },
     getOne: function (user) {
-      console.log('getOne-models-users');
+      console.log('gettingOne');
       return knex('users').where('username', user.username)
       .then(function(userMatch) {
+        console.log('USERMATCH', userMatch);
         return userMatch;
       })
     },
 
-    post: function (params, callback) {
-      console.log('post-models-users');
+    createUser: function (params, callback) {
+      console.log('post-models-users', params);
       knex.insert({username: params[0], password: params[1]}).into('users')
         .catch(function(err) {
           callback(err);
         })
         .then(function(id) {
-          callback(null, count);
+          callback(null, id);
         })
     },
+
     comparePassword: function(attemptedPassword) {
-      return bcrypt.compare(attemptedPassword, knex('users').where({username: username}).select('password') );
-    },
-    hashPassword: function(password) {
-      return bcrypt.hash(password, 10);
+      return bcrypt.compare(attemptedPassword, knex('users').where({username: username}).select('password'), function (err, isMatch) {
+
+      });
     }
+
+    // hashPassword: function(password, function(err, hash) {
+
+    // })
 
   },
 

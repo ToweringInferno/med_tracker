@@ -1,7 +1,10 @@
 var knex = require('../db/index');
 var Q = require('q');
-var jwt = require('jwt-simple');
-var secret = 'secretString';
+var session = require('express-session');
+var utilities = require('../utilities.js');
+var bcrypt = require('bcrypt');
+// var jwt = require('jwt-simple');
+// var secret = 'secretString';
 var models = require('../models');
 
 // var findUser = Q.nbind(models.users.getOne
@@ -23,49 +26,44 @@ module.exports = {
         console.log('USERS', users);
         res.send(users);
       })
-    }
-  },
+    },
 
   signup: function (req, res, next) {
-    console.log('users-SIGNUP-Controller');
+    console.log('users-SIGNUP-Controller', req.body);
     var username = req.body.username;
     var password = req.body.password;
 
     return models.users.getOne({username, password})
-    // findUser({username: username})
-    // knex('users').where('username', username)
-      .then(function(user) {
-          if (user) {
-            next(new Error('that username is already taken'));
+      .then(function(userMatch) {
+          if (userMatch.length !== 0) {
+            next(new Error('That username is already taken'));
+            res.redirect('/login');
+
           }
-          return users.hashPassword(password)
-      })
-      .then(hash => {
-        // create new user in db with username and hashed pw
-        return models.users.post([username, hash], function (err, results) {
-          if (err) {
-            throw err
-          }
+          // bcrypt.hash(password, null, null, function(err, hash) {
+          //   console.log('HASHED', hash);
+          //   if (err) {throw err}
+            models.users.createUser([username, password], function(err, id) {
+              if (err) {throw err}
+                utilities.startSession(req, res, id);
+                console.log('NEW USER', id);
+                res.sendStatus(201);
+            })
+          // })
         })
-      })
-      .then(function(user) {
-        var token = jwt.encode(user, secret);
-        res.json({token: token});
-      }) 
-      .fail(err => next(err))
   },
 
   login: function(req, res, next) {
     console.log('users-LOGIN-Controller');
     var username = req.body.username;
-    var password = req.body.password;      
+    var password = req.body.password;
     // check if username is in db with the sent username
     return models.user.getOne({username})
     // findUser({username})
     .then(function(user) {
       // If user does not exist, send 400 response
       if (!(user)) {
-        next(new Error('username does not exist'));
+        next(new Error('Username does not exist'));
       } else {
         // Hash the sent password, invoking model method
         return users.hashPassword(password);
@@ -73,13 +71,14 @@ module.exports = {
     })
     .then(function(hash) {
       // Compare hashed password with user's password hash fetched from database
-      return user.comparePassword(hash)
+      return models.users.comparePassword(hash)
     })
     .then(function(foundUser) {
       if (foundUser) {
+
       // create token for client's session
-        var token = jwt.encode(user, secret);
-        res.json({token});
+        // var token = jwt.encode(user, secret);
+        // res.json({token});
      // If does not match, send 401 response
       } else {
         return next(new Error('passwords do not match'));
@@ -88,6 +87,12 @@ module.exports = {
     .fail(function(err) {
       next(err);
     })
+  },
+
+  logout: function(req, res) {
+    req.session.destroy(function() {
+      res.redirect('/login');
+    });
   },
 
   checkAuth: function (req, res, next) {
@@ -113,7 +118,8 @@ module.exports = {
           next(error);
         });
     }
-  },
+  }
+},
 
   schedules: {
     get: function (req, res) {
@@ -158,7 +164,7 @@ module.exports = {
   // ALTERNATIVE IMPLEMENTATION
   // signup: function(req, res, next) {
   //   var username = req.body.username;
-  //   var password = req.body.password;    
+  //   var password = req.body.password;
   //     return knex('users')
   //       .where('username', username)
   //       .then(user => {
@@ -172,7 +178,7 @@ module.exports = {
   //         // create new user in db with username and hashed pw
   //         return models.users.post([username, hash], function (err, results) {
   //       if (err) {throw err}
-  //         res.sendStatus(201);    
+  //         res.sendStatus(201);
   // }
 
   // api: {
@@ -263,23 +269,23 @@ module.exports = {
     //   if (!(password)) {
     //     return res.status(422).json({message: 'password is missing'});
     //   }
-    //   // trim any leading or trailing white space      
+    //   // trim any leading or trailing white space
     //   password = password.trim();
     // }
-    
+
     // checkUserData: function(req, res) {
     //   // 2. CHECK DB for matching user & password
     //   var params = [username, password];
     //   models.users.get(params, function (err, results) {
     //     if (err) {throw err}
     //       res.sendStatus(201);
-    //   })   
+    //   })
     //   .then(function(user) {
     //     if (user)
 
     //     res.send(users);
     //   })
-    // },      
+    // },
     //   return  knex.select
 
       // var params = [req.body.username, req.body.password];
