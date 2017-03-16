@@ -2,14 +2,15 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
 .controller('ScheduleController', [
 	'$scope',
-	'reminders',
-	function($scope, reminders) {
+	'Reminders',
+  'Auth',
+	function($scope, Reminders, Auth) {
 
 	$scope.allReminders = {};
 	$scope.allMeds = [];
 
 	$scope.getReminders = function() {
-		reminders.getAll()
+		Reminders.getAll()
 			.then(function(reminders) {
 				$scope.allReminders.reminders = reminders;
 				$scope.allReminders.reminders.data.forEach(function(object) {
@@ -25,12 +26,10 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 	$scope.getReminders();
 
 	$scope.remove = function($index) {
-
 		var deleteTarget = $scope.allReminders.reminders.data[$index].time;
 
-		reminders.deleteOne({time: deleteTarget})
+		Reminders.deleteOne({time: deleteTarget})
 		  .then(function(response) {
-		  	console.log('DELETE RESPONSE', response);
 		  	$scope.getReminders();
 		  })
 		  .catch(function(error) {
@@ -39,13 +38,12 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 	};
 
 	$scope.update = function($index, newtime) {
-
 		var updateObj = {
 			time: $scope.allReminders.reminders.data[$index].time,
 			newTime: newtime
 		};
 
-		reminders.updateOne(updateObj)
+		Reminders.updateOne(updateObj)
 		  .then(function(response) {
 		  	console.log('UPDATE RESPONSE', response);
 		  	$scope.getReminders();
@@ -66,40 +64,42 @@ angular.module('medTracker.schedule', ['medTracker.services'])
   };
 
   $scope.makeComparison = function(selectedDrug, otherDrug) {
-
-  		// var firstDrug = otherDrug.toLowerCase();
-  		// console.log(firstDrug);
-  		// var secondDrug = selectedDrug.toLowerCase();
-
   		var firstCode;
   		var secondCode;
 
-  		reminders.fetchCode(otherDrug)
+  		Reminders.fetchCode(otherDrug)
 	  		.catch(function(error) {
 					console.error(error)
 				})
   		  .then(function(res) {
   		  	firstCode = res.data.idGroup.rxnormId[0];
-  		  	console.log('FIRST CODE', firstCode);
-
-  		  	reminders.fetchCode(selectedDrug)
+  		  	Reminders.fetchCode(selectedDrug)
   		  		.catch(function(error) {
 							console.error(error)
 						})
 		  		  .then(function(res) {
 			  		  secondCode = res.data.idGroup.rxnormId[0];
-			  		  console.log('SECOND', secondCode);
-
-			  		  reminders.getInteraction(firstCode, secondCode)
+			  		  Reminders.getInteraction(firstCode, secondCode)
 						    .then(function(res) {
 						    	console.log('INTERACTION RES', res.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].description);
 						    	$scope.interaction = res.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].description;
 						    })
 						    .catch(function(error) {
-								console.error(error)
+								  console.error(error)
 							  });
 		  		  })
   		  });
+
+  $scope.logout = function() {
+    console.log('LOGOUT CLICKED');
+    Auth.logout()
+      .then(function(res) {
+        console.log("LOGOUT SUCCESS", res);
+      })
+      .catch(function(error) {
+        console.error(error)
+      });
+  }
 };
 
 }]);

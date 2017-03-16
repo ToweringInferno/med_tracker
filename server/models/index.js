@@ -1,6 +1,6 @@
 var knex = require('../db/index');
-// require bcrypt module for encryption
-var bcrypt = require('bcryptjs');
+var bcrypt = require('bcrypt');
+
 
 
 module.exports = {
@@ -13,8 +13,7 @@ module.exports = {
           return response;
         });
     },
-    getOne: function (user) {
-      console.log('gettingOne');
+    getUser: function (user) {
       return knex('users').where('username', user.username)
       .then(function(userMatch) {
         console.log('USERMATCH', userMatch);
@@ -31,13 +30,19 @@ module.exports = {
         .then(function(id) {
           callback(null, id);
         })
-    },
-
-    comparePassword: function(attemptedPassword) {
-      return bcrypt.compare(attemptedPassword, knex('users').where({username: username}).select('password'), function (err, isMatch) {
-
-      });
     }
+
+    // comparePassword: function(params, callback) {
+    //   console.log('COMPARING WITH', knex('users').where({username: params[1]}).select('password'))
+    //   bcrypt.compare(params[0], knex('users').where({username: params[1]}).select('password'))
+    //     .catch(function(err) {
+    //       callback(err);
+    //     })
+    //     .then(function(isMatch) {
+    //       console.log('MATCHING', isMatch);
+    //       callback(null, isMatch);
+    //     })
+    // }
 
     // hashPassword: function(password, function(err, hash) {
 
@@ -46,10 +51,11 @@ module.exports = {
   },
 
   schedules: {
-    get: function () {
+    get: function (sessionUser) {
       return knex('schedules')
         .join('meds', 'schedules.meds_id', '=', 'meds.id')
-        .select('schedules.id', 'meds.medname', 'schedules.time')
+        .where('users_id', sessionUser)
+        // .select('schedules.id', 'meds.medname', 'schedules.time')
         .then(function (response) {
           console.log('GET RESPONSE', response);
           return response;
@@ -60,7 +66,7 @@ module.exports = {
     post: function (params, callback) {
       knex.insert({medname: params[0]}).into('meds')
         .then(function(id) {
-          knex.insert({time: params[1], meds_id: id}).into('schedules')
+          knex.insert({time: params[1], meds_id: id, users_id: params[2]}).into('schedules')
           .catch(function(err) {
             callback(err);
           })
@@ -94,11 +100,4 @@ module.exports = {
     }
   }
 }
-
-  // api: {
-
-  //   get: function() {
-
-  //   }
-  // }
 

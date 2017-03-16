@@ -1,6 +1,6 @@
 angular.module('medTracker.services', [])
 
-.factory('reminders', function($http) {
+.factory('Reminders', function($http) {
 
 	var getAll = function() {
 		console.log('GETTING ALL');
@@ -67,42 +67,33 @@ angular.module('medTracker.services', [])
 
 .factory('Auth', function($http, $location, $window) {
 
-	var signin = function (user) {
+	var login = function (user) {
     return $http({
       method: 'POST',
-      url: '/users/signin',
+      url: '/login',
       data: user
     })
-    .then(function (resp) {
-      return resp.data.token;
-    });
   };
 
   var signup = function (user) {
     return $http({
       method: 'POST',
-      url: '/users/signup',
+      url: '/signup',
       data: user
     })
-    .then(function (resp) {
-      return resp.data.token;
-    });
   };
 
-  var isAuth = function () {
-    return !!$window.localStorage.getItem('com.medTracker');
-  };
-
-  var signout = function () {
-    $window.localStorage.removeItem('com.medTracker');
-    $location.path('/signin');
+  var logout = function () {
+    return $http({
+      method: 'GET',
+      url: '/logout',
+    })
   };
 
  return {
-    signin: signin,
+    login: login,
     signup: signup,
-    isAuth: isAuth,
-    signout: signout
+    logout: logout
   };
 
 });

@@ -19,36 +19,37 @@ var models = require('../models');
 module.exports = {
 
   users: {
-    get: function (req, res) {
-      console.log('users-get-Controller, req: ', req);
-      models.users.get()
-      .then(function(users) {
-        console.log('USERS', users);
-        res.send(users);
-      })
-    },
+    // get: function (req, res) {
+    //   console.log('users-get-Controller, req session: ', req.session.user);
+    //   models.users.get(req.session.user)
+    //   .then(function(users) {
+    //     console.log('USERS', users);
+    //     res.send(users);
+    //   })
+    // },
 
   signup: function (req, res, next) {
     console.log('users-SIGNUP-Controller', req.body);
     var username = req.body.username;
     var password = req.body.password;
 
-    return models.users.getOne({username, password})
+    return models.users.getUser({username, password})
       .then(function(userMatch) {
-          if (userMatch.length !== 0) {
-            next(new Error('That username is already taken'));
-            res.redirect('/login');
+          if (userMatch.length === 0) {
 
+            models.users.createUser([username, password], function(err, id) {
+              if (err) {throw err}
+                console.log('NEW USER', id);
+                utilities.startSession(req, res, id);
+            })
+          }
+          else {
+            next(new Error('That username is already taken'));
+            res.redirect('/#!/signup');
           }
           // bcrypt.hash(password, null, null, function(err, hash) {
           //   console.log('HASHED', hash);
           //   if (err) {throw err}
-            models.users.createUser([username, password], function(err, id) {
-              if (err) {throw err}
-                utilities.startSession(req, res, id);
-                console.log('NEW USER', id);
-                res.sendStatus(201);
-            })
           // })
         })
   },
@@ -57,74 +58,40 @@ module.exports = {
     console.log('users-LOGIN-Controller');
     var username = req.body.username;
     var password = req.body.password;
-    // check if username is in db with the sent username
-    return models.user.getOne({username})
-    // findUser({username})
-    .then(function(user) {
-      // If user does not exist, send 400 response
-      if (!(user)) {
-        next(new Error('Username does not exist'));
-      } else {
-        // Hash the sent password, invoking model method
-        return users.hashPassword(password);
-      }
-    })
-    .then(function(hash) {
-      // Compare hashed password with user's password hash fetched from database
-      return models.users.comparePassword(hash)
-    })
-    .then(function(foundUser) {
-      if (foundUser) {
 
-      // create token for client's session
-        // var token = jwt.encode(user, secret);
-        // res.json({token});
-     // If does not match, send 401 response
-      } else {
-        return next(new Error('passwords do not match'));
-      }
-    })
-    .fail(function(err) {
-      next(err);
-    })
+    return models.users.getUser({username, password})
+      .then(function(userMatch) {
+          if (userMatch.length !== 0) {
+            console.log('password compare', password, userMatch[0].password);
+            if (password === userMatch[0].password) {
+              var sessionID = userMatch[0].id;
+              console.log('CREATE SESSION', sessionID)
+              utilities.startSession(req, res, sessionID);
+            }
+            else {
+              next(new Error('Password does not match, please try again'));
+              res.redirect('/#!/login')
+            }
+
+          }
+          else {
+            next(new Error('User does not exist, please create account'));
+            res.redirect('/#!/login')
+          }
+      })
   },
 
   logout: function(req, res) {
     req.session.destroy(function() {
-      res.redirect('/login');
+      res.redirect('/#!/login');
     });
-  },
-
-  checkAuth: function (req, res, next) {
-    console.log('CHECK-AUTH-Controller');
-    // checking to see if the user is authenticated
-    // grab the token in the header if there is any
-    // then decode the token, which will end up being the user object
-    // check to see if that user exists in the database
-    var token = req.headers['x-access-token'];
-    if (!token) {
-      next(new Error('No token'));
-    } else {
-      var user = jwt.decode(token, secret);
-      findUser({username: user.username})
-        .then(function (foundUser) {
-          if (foundUser) {
-            res.send(200);
-          } else {
-            res.send(401);
-          }
-        })
-        .fail(function (error) {
-          next(error);
-        });
-    }
   }
 },
 
   schedules: {
     get: function (req, res) {
-      console.log('GETTING SCHEDULES');
-      models.schedules.get()
+      console.log('SESSION USER', req.session.user)
+      models.schedules.get(req.session.user)
       .then(function(schedules) {
         res.send(schedules);
       })
@@ -132,7 +99,8 @@ module.exports = {
 
     post: function(req, res) {
       console.log('POSTING  TO SCHEDULES');
-      var params = [req.body.medname, req.body.time];
+      console.log('INSERTING USER FOREIGN', req.session.user);
+      var params = [req.body.medname, req.body.time, req.session.user];
       models.schedules.post(params, function (err, results) {
         if (err) {throw err}
           res.sendStatus(201);
