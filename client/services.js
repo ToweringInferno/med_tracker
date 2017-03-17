@@ -6,11 +6,7 @@ angular.module('medTracker.services', [])
 		console.log('GETTING ALL');
 		return $http({
 			method: 'GET',
-			url: '/schedules'
-		})
-		.then(function(res) {
-			console.log('RESPONSE'. res);
-			return res;
+			url: '/reminders'
 		})
 	};
 
@@ -18,7 +14,7 @@ angular.module('medTracker.services', [])
 		console.log('POST reminder', reminder);
 		return $http({
 			method: 'POST',
-			url: '/schedules',
+			url: '/reminders',
 			data: reminder
 		})
 	};
@@ -35,7 +31,7 @@ angular.module('medTracker.services', [])
 	var updateOne = function(reminder) {
 		return $http({
 			method: 'PUT',
-			url: '/schedules',
+			url: '/reminders',
 			data: reminder
 		})
 	};
@@ -70,7 +66,7 @@ angular.module('medTracker.services', [])
 	var login = function (user) {
     return $http({
       method: 'POST',
-      url: '/login',
+      url: '/user/login',
       data: user
     })
   };
@@ -78,7 +74,7 @@ angular.module('medTracker.services', [])
   var signup = function (user) {
     return $http({
       method: 'POST',
-      url: '/signup',
+      url: '/user/signup',
       data: user
     })
   };
@@ -86,14 +82,22 @@ angular.module('medTracker.services', [])
   var logout = function () {
     return $http({
       method: 'GET',
-      url: '/logout',
+      url: '/user/logout',
+    })
+  };
+
+  var isLoggedIn = function() {
+    return $http({
+      method: 'GET',
+      url: '/user/isLoggedIn'
     })
   };
 
  return {
     login: login,
     signup: signup,
-    logout: logout
+    logout: logout,
+    isLoggedIn: isLoggedIn
   };
 
 });
