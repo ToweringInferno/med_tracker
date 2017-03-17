@@ -13,24 +13,24 @@ app.config([
  function($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider
-  .state('login', {
-    url: '/login',
-    templateUrl: 'views/login.html',
+  .state('signin', {
+    url: '/signin',
+    templateUrl: './views/login.html',
     controller: 'AuthController'
   })
   .state('signup', {
     url: '/signup',
-    templateUrl: 'views/signup.html',
+    templateUrl: './views/signup.html',
     controller: 'AuthController'
   })
   .state('schedule', {
     url: '/schedule',
-    templateUrl: 'views/schedule.html',
+    templateUrl: './views/schedule.html',
     controller: 'ScheduleController'
   })
  .state('input', {
    	url: '/input',
-		templateUrl: 'views/input.html',
+		templateUrl: './views/input.html',
 		controller: 'InputController'
 	});
 

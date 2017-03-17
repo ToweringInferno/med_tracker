@@ -2,9 +2,27 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
 .controller('ScheduleController', [
 	'$scope',
+  '$location',
 	'Reminders',
   'Auth',
-	function($scope, Reminders, Auth) {
+	function($scope, $location, Reminders, Auth) {
+
+
+  $scope.checkUser = function() {
+  Auth.isLoggedIn()
+    .then(function(response) {
+      if (response.data === 'True') {
+        console.log('LOCATION', $location);
+        $location.path('/schedule');
+      }
+      else {
+        console.log('LOCATION FALSE', $location);
+        $location.path('/signin');
+      }
+    })
+  }
+
+  $scope.checkUser();
 
 	$scope.allReminders = {};
 	$scope.allMeds = [];
@@ -12,6 +30,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 	$scope.getReminders = function() {
 		Reminders.getAll()
 			.then(function(reminders) {
+        console.log('Reminders', reminders);
 				$scope.allReminders.reminders = reminders;
 				$scope.allReminders.reminders.data.forEach(function(object) {
 					$scope.allMeds.push(object.medname);
@@ -23,7 +42,9 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 			})
 	};
 
-	$scope.getReminders();
+
+  $scope.getReminders();
+
 
 	$scope.remove = function($index) {
 		var deleteTarget = $scope.allReminders.reminders.data[$index].time;

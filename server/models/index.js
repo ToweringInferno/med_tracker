@@ -5,14 +5,7 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
   users: {
-    get: function () {
-      console.log('models-users-get')
-      return knex.select().from('users')
-        .then(function (response) {
-          console.log('USERS RES');
-          return response;
-        });
-    },
+
     getUser: function (user) {
       return knex('users').where('username', user.username)
       .then(function(userMatch) {
@@ -60,8 +53,15 @@ module.exports = {
           console.log('GET RESPONSE', response);
           return response;
         })
-
     },
+
+    //  getMed: function (med) {
+    //   return knex('meds').where('medname', med.medname)
+    //   .then(function(medMatch) {
+    //     console.log('MEDMATCH', medMatch);
+    //     return medMatch;
+    //   })
+    // },
 
     post: function (params, callback) {
       knex.insert({medname: params[0]}).into('meds')
@@ -77,7 +77,7 @@ module.exports = {
     },
 
     delete: function(params, callback) {
-      knex('schedules').where('time', params[0]).del()
+      knex('schedules').where({time: params[0], users_id: params[1]}).del()
         .catch(function(err) {
             callback(err);
         })

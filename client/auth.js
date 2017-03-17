@@ -15,8 +15,7 @@ angular.module('medTracker.auth', ['medTracker.services'])
 
     Auth.login(user)
       .then(function (res) {
-        console.log('SIGNED IN', res);
-        $location.path('/');
+        $location.path('/schedule');
       })
       .catch(function (error) {
         console.error(error);
@@ -36,7 +35,7 @@ angular.module('medTracker.auth', ['medTracker.services'])
 
     Auth.signup(user)
       .then(function (res) {
-        console.log('CREATED NEW USER', res);
+        $location.path('/schedule');
       })
       .catch(function (error) {
         console.error(error);

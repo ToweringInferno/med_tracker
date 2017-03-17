@@ -6,21 +6,35 @@ module.exports = function (app, express) {
 
 
 
-  app.post('/signup', controllers.users.signup);
-  app.post('/login', controllers.users.login);
-  app.get('/logout', controllers.users.logout);
+  app.post('/user/signup', controllers.users.signup);
+  app.post('/user/login', controllers.users.login);
+  app.get('/user/logout', controllers.users.logout);
+
+  app.get('/user/isLoggedIn', function(req, res) {
+    if (req.session.user) {
+      res.send('True');
+    }
+    else {
+      res.send('False');
+    }
+  });
+    // app.get('/logout', function (req, res) {
+    //   req.session.destroy(function () {
+    //       res.redirect('/login');
+    //   });
+    // });
 
 
-  app.get('/schedules', utilities.activeSession, controllers.schedules.get);
-  // app.get('/', utilities.activeSession, controllers.schedules.get);
+  app.get('/reminders', utilities.activeSession, controllers.schedules.get);
+  app.get('/', utilities.activeSession, controllers.schedules.get);
 
-  app.post('/schedules', utilities.activeSession, controllers.schedules.post);
+  app.post('/reminders', utilities.activeSession, controllers.schedules.post);
 
   app.post('/delete', utilities.activeSession, controllers.schedules.delete);
 
-  app.put('/schedules', utilities.activeSession, controllers.schedules.put);
+  app.put('/reminders', utilities.activeSession, controllers.schedules.put);
 
-  app.get('/*', utilities.activeSession, controllers.schedules.get);
+  // app.get('/*', utilities.activeSession, controllers.schedules.get);
 
   // app.get('/api', controllers.api.get);
 

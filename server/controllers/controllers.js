@@ -3,30 +3,11 @@ var Q = require('q');
 var session = require('express-session');
 var utilities = require('../utilities.js');
 var bcrypt = require('bcrypt');
-// var jwt = require('jwt-simple');
-// var secret = 'secretString';
 var models = require('../models');
-
-// var findUser = Q.nbind(models.users.getOne
-//   knex('users').where('username', username));
-// var createUser = Q.nbind(models.users.post([username, password],
-//   function (err, results) {
-//     if (err) { throw err; }
-//     res.sendStatus(201);
-//   })
-// );
 
 module.exports = {
 
   users: {
-    // get: function (req, res) {
-    //   console.log('users-get-Controller, req session: ', req.session.user);
-    //   models.users.get(req.session.user)
-    //   .then(function(users) {
-    //     console.log('USERS', users);
-    //     res.send(users);
-    //   })
-    // },
 
   signup: function (req, res, next) {
     console.log('users-SIGNUP-Controller', req.body);
@@ -36,7 +17,6 @@ module.exports = {
     return models.users.getUser({username, password})
       .then(function(userMatch) {
           if (userMatch.length === 0) {
-
             models.users.createUser([username, password], function(err, id) {
               if (err) {throw err}
                 console.log('NEW USER', id);
@@ -44,7 +24,8 @@ module.exports = {
             })
           }
           else {
-            next(new Error('That username is already taken'));
+            // next(new Error('That username is already taken'));
+            console.error('That username is already taken');
             res.redirect('/#!/signup');
           }
           // bcrypt.hash(password, null, null, function(err, hash) {
@@ -69,21 +50,22 @@ module.exports = {
               utilities.startSession(req, res, sessionID);
             }
             else {
-              next(new Error('Password does not match, please try again'));
-              res.redirect('/#!/login')
+              // next(new Error('Password does not match, please try again'));
+              console.error('Username is taken');
+              res.redirect('/#!/signin')
             }
 
           }
           else {
             next(new Error('User does not exist, please create account'));
-            res.redirect('/#!/login')
+            res.redirect('/#!/signin')
           }
       })
   },
 
   logout: function(req, res) {
     req.session.destroy(function() {
-      res.redirect('/#!/login');
+      res.redirect('/#!/signin');
     });
   }
 },
@@ -98,7 +80,6 @@ module.exports = {
     },
 
     post: function(req, res) {
-      console.log('POSTING  TO SCHEDULES');
       console.log('INSERTING USER FOREIGN', req.session.user);
       var params = [req.body.medname, req.body.time, req.session.user];
       models.schedules.post(params, function (err, results) {
@@ -109,10 +90,9 @@ module.exports = {
 
     delete: function(req, res) {
       console.log('delete request', req.body);
-      var params = [req.body.time];
+      var params = [req.body.time, req.session.user];
       models.schedules.delete(params, function (err, count) {
         if (err) {throw err}
-          console.log('DELETED');
           res.sendStatus(200);
       })
     },
@@ -122,7 +102,6 @@ module.exports = {
       var params = [req.body.time, req.body.newTime];
       models.schedules.put(params, function (err, count) {
         if (err) {throw err}
-          console.log('UPDATED');
           res.sendStatus(200);
       })
     }
