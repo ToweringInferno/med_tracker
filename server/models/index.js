@@ -139,6 +139,17 @@ module.exports = {
             console.log('UPDATED', count);
             callback(null, count);
           })
+    },
+    toggleTaken: function(toggleTakenObj, callback) {
+      knex('schedules').where({'id': toggleTakenObj.id})
+      .update({taken: toggleTakenObj.taken})
+      .catch(function(err) {
+        callback(err);
+      })
+      .then(function(count) {
+        console.log('Updated ', count);
+        callback(null, count);
+      })
     }
   }
 }

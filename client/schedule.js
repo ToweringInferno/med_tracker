@@ -46,6 +46,26 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
   $scope.getReminders();
 
+  $scope.toggleTaken = function($index) {
+  	// get the current status of 'taken' boolean value on specified reminder
+  	var reminder = $scope.allReminders.reminders.data[$index];
+  	var oldTakenStatus = reminder.taken;
+  	var id = reminder.id;
+  	console.log('oldTakenStatus ', oldTakenStatus);
+  	// reference the opposite (i.e., toggled) value
+  	var newTakenStatus = !oldTakenStatus;
+  	var toggleTakenObj = {id: id, taken: newTakenStatus};
+
+  	// make call to factory (Reminders) to toggle that value
+  	Reminders.toggleTaken(toggleTakenObj) 
+  	  .then(function(response) {
+  		  $scope.allReminders.reminders.data[$index].taken = newTakenStatus;
+  	  })
+  	  .catch(function(error) {
+  		  console.error(error);
+  	  })
+  };
+
 
 	$scope.remove = function($index) {
 		var deleteTime = $scope.allReminders.reminders.data[$index].time;
