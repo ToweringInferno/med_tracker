@@ -1,0 +1,47 @@
+.logo {
+	height: 48px;
+}
+.title {
+	font-size: 36px;
+}
+.navigation {
+	padding: 5px;
+	background-color: #eeeeee;
+}
+
+.features .glyphicon {
+	font-size: 48px;
+	color: #5bc0de;
+}
+.input-title {
+	color: orange;
+}
+.signup-title {
+	color: blue;
+}
+.login-title {
+	color: green;
+}
+.schedule-title {
+	color: #cc33ff;
+}
+
+input {
+	line-height: 2.5;
+	font-size: 18px;
+}
+
+.radius {
+	border-radius: 0.5rem;
+}
+
+.shadow {
+	box-shadow: #728099 0 1px 5px 0;
+}
+
+.addendum {
+	padding-top: 10px;
+}
+
+
+/* glyphicon alt color #5bc0de */

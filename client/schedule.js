@@ -83,7 +83,6 @@ angular.module('medTracker.schedule', ['medTracker.services'])
   $scope.editHandler = function() {
       console.log('BEING HANDLED');
       $scope.flag = true;
-
   };
 
   $scope.makeComparison = function(selectedDrug, otherDrug) {

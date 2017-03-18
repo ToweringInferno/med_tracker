@@ -1,9 +1,50 @@
-<div id='login'>
-	<h1>Login</h1>
-	<form name='loginForm' ng-submit='login()'>
-		<input type='text' ng-model='user.username'>
-		<input type='password' ng-model='user.password'>
-		<button>login</button>
-	</form>
-  <a ui-sref="signup">Don't have an account? <strong>Signup</strong> ...</a>
+<div id='login' class='container'>
+
+	<div class='well well-lg radius shadow col-md-6 col-md-offset-3 text-center'>
+	  <!-- title -->
+		<div class='features'>
+			  <span class='glyphicon glyphicon-log-in'></span>
+			<h1 class='login-title'>Login</h1>	
+		</div>
+
+		<form name='loginForm' ng-submit='login()'>
+
+		  <!-- username -->
+			<div class='row form-group'>
+				<input type='text' name="username" ng-model='user.username' class='text-center' placeholder='Username'>
+			</div>
+
+			<!-- password -->
+			<div class='row form-group'>
+				<input type='password' ng-model='user.password' class='text-center' placeholder='Password'>
+			</div>
+
+			<!-- Login button -->
+			<div class='row'>
+				<button class='btn btn-lg btn-primary col-xs-4 col-xs-offset-4'>Login</button>
+			</div>
+
+		</form>
+	<div class='addendum'>
+  	<a ui-sref="signup">Don't have an account? <strong>Signup</strong> ...</a>
+	</div>
+	</div>
+
+
 </div>
+
+<!-- col-xs-4 col-xs-offset-4  -->
+<!-- col-xs-4 col-xs-offset-4  -->
+<!-- col-xs-4 col-xs-offset-4 -->
+
+
+
+
+
+
+
+
+
+
+
+
