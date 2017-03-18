@@ -5,8 +5,8 @@ var reminderWorkerFactory = function(){
     run: function(){
       models.schedules.filterAll()
         .then(function(reminders) {
-          console.log('REMINDER', reminder);
-          models.schedules.filterReminders(reminders)
+          console.log('REMINDERS FILTERED', reminders);
+          // models.schedules.sendReminders(reminders)
         })
     }
   };
