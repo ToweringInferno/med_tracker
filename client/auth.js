@@ -29,7 +29,8 @@ angular.module('medTracker.auth', ['medTracker.services'])
 
     var user = {
       username: $scope.user.username,
-      password: $scope.user.password
+      password: $scope.user.password,
+      phone: $scope.user.phone
     }
 
 
@@ -43,6 +44,7 @@ angular.module('medTracker.auth', ['medTracker.services'])
 
       $scope.user.username = '';
       $scope.user.password = '';
+      $scope.user.phone = '';
   };
 
 }]);

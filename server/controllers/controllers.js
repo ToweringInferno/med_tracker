@@ -13,11 +13,12 @@ module.exports = {
     console.log('users-SIGNUP-Controller', req.body);
     var username = req.body.username;
     var password = req.body.password;
+    var phone = req.body.phone;
 
     return models.users.getUser({username, password})
       .then(function(userMatch) {
           if (userMatch.length === 0) {
-            models.users.createUser([username, password], function(err, id) {
+            models.users.createUser([username, password, phone], function(err, id) {
               if (err) {throw err}
                 console.log('NEW USER', id);
                 utilities.startSession(req, res, id);
@@ -90,7 +91,7 @@ module.exports = {
 
     delete: function(req, res) {
       console.log('delete request', req.body);
-      var params = [req.body.time, req.session.user];
+      var params = [req.body.time, req.session.user, req.body.meds_id];
       models.schedules.delete(params, function (err, count) {
         if (err) {throw err}
           res.sendStatus(200);
