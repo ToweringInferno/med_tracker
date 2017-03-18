@@ -7,6 +7,7 @@
     <title>Your Medicine Tracker</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href='css/main.css' rel='stylesheet'>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
 
@@ -14,7 +15,7 @@
 
     <meta charset="utf-8" />
 
-     <script src="auth.js" defer></script>
+    <script src="auth.js" defer></script>
     <script src="input.js" defer></script>
     <script src="schedule.js" defer></script>
     <script src="services.js" defer></script>
@@ -24,24 +25,44 @@
   </head>
 
   <body  ng-app='medTracker'>
-    <h1>Med Tracker</h1>
+<!--     <div class='container'> -->
 
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="schedule"></a>
-        </div>
-        <ul class="nav navbar-nav">
+<!--       <div class='row'> -->
+<!--         <img src='images/rx-logo.png' class='logo'> -->
+<!-- <a href='#' class='navbar-brand'></a> -->
+<!--         <h1 id='title'>ReminderX</h1>
+      <div>
+
+      <nav class="navbar navbar-inverse" role="navigation">
+        <!--  <h1 id='title'>ReminderX</h1>       -->
+<!--           <div class="navbar-header">
+              <a class="navbar-brand" ui-sref="schedule"></a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li><a ui-sref="schedule">All Reminders</a></li>
+              <li><a ui-sref="input">Add New Reminder</a></li>
+          </ul>
+      </nav> --> 
+
+    <nav class='navbar navbar-static-top navigation'>
+      <div class='container'>
+          <a href='/' class='navbar-brand title'><span style="font-size: 48px; font-family: Arial-Unicode-MS;">R</span>eminder<span style="font-size: 48px; font-family: Arial-Unicode-MS;">X</span></a>
+          <ul class='nav navbar-nav navbar-right'>
+<!--             <li><a href='tickets.html'>Tickets</a></li>
+            <li><a href='stations.html'>Stations</a></li>
+            <li><a href='about.html'>About</a></li> -->
             <li><a ui-sref="schedule">All Reminders</a></li>
             <li><a ui-sref="input">Add New Reminder</a></li>
-        </ul>
-      </nav>
+          </ul>
+      </div>
+    </nav>
 
-    <!-- RENDERS VIEWS -->
-    <ui-view></ui-view>
+      <!-- RENDERS VIEWS -->
+      <ui-view></ui-view>
 
-    <!-- insert script tags -->
+      <!-- insert script tags -->
 
 
-
+<!--     </div> -->
   </body>
 </html>

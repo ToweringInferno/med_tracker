@@ -1,6 +1,6 @@
-<div id="-text-center">
+<div id="input" class='container'>
 
-	<form name='inputForm'>
+<!-- 	<form name='inputForm'>
     <div class="form-group">
 		  <input type='text' ng-model='reminder.medname' placeholder='Enter medication' required>
     </div>
@@ -9,6 +9,35 @@
 		  <input type='text' ng-model='reminder.time' placeholder='Enter the time you take it' required>
     </div>
     <button type='submit' ng-click='addReminder()'>Create New Reminder</button>
-	</form>
+	</form> -->
+
+
+	<div class='well well-lg text-center'>
+
+		<!-- title -->
+		<div class='row features'>
+			<span class='glyphicon glyphicon-pencil'></span>
+			<h1 class='input-title'>New Reminder</h1>	
+		</div>
+
+		<form name='inputForm' ng-submit='signup()'>
+
+			<!-- medication -->
+			<div class='row form-group'>
+				<input type='text' ng-model='reminder.medname' class='col-xs-4 col-xs-offset-4 text-center' placeholder='Enter medication name...'>
+			</div>
+
+			<!-- time -->
+			<div class='row form-group'>
+				<input type='password' ng-model='reminder.time' class='col-xs-4 col-xs-offset-4 text-center' placeholder='the time to take it (format hh:mm)'>
+			</div>
+<!-- 			<div class='row'>
+				<input type='phone' ng-model='user.phone' class='col-xs-4 col-xs-offset-4' placeholder='Mobile Number'>
+			</div>	 -->		
+			<div class='row'>
+				<button type='submit' ng-click='addReminder()' class='btn btn-lg btn-primary col-xs-4 col-xs-offset-4'>Create New Reminder</button>
+			</div>
+		</form>
+	</div>	
 
 </div>
