@@ -27,6 +27,6 @@ var port = process.env.PORT || 8080;
 
 app.listen(port, function() {console.log ('Check out the party on port ' + port)});
 
-// scheduler.start();
+scheduler.start();
 
 module.exports = app;

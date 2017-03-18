@@ -5,8 +5,10 @@ var reminderWorkerFactory = function(){
     run: function(){
       models.schedules.filterAll()
         .then(function(reminders) {
-          console.log('REMINDERS FILTERED', reminders);
-          // models.schedules.sendReminders(reminders)
+          if (reminders.length !== 0) {
+            console.log('REMINDERS FILTERED', reminders);
+            // models.schedules.sendReminders(reminders);
+          }
         })
     }
   };

@@ -10,7 +10,6 @@ module.exports = {
   users: {
 
   signup: function (req, res, next) {
-    console.log('users-SIGNUP-Controller', req.body);
     var username = req.body.username;
     var password = req.body.password;
     var phone = req.body.phone;
@@ -20,7 +19,6 @@ module.exports = {
           if (userMatch.length === 0) {
             models.users.createUser([username, password, phone], function(err, id) {
               if (err) {throw err}
-                console.log('NEW USER', id);
                 utilities.startSession(req, res, id);
             })
           }
@@ -37,17 +35,14 @@ module.exports = {
   },
 
   login: function(req, res, next) {
-    console.log('users-LOGIN-Controller');
     var username = req.body.username;
     var password = req.body.password;
 
     return models.users.getUser({username, password})
       .then(function(userMatch) {
           if (userMatch.length !== 0) {
-            console.log('password compare', password, userMatch[0].password);
             if (password === userMatch[0].password) {
               var sessionID = userMatch[0].id;
-              console.log('CREATE SESSION', sessionID)
               utilities.startSession(req, res, sessionID);
             }
             else {
@@ -73,7 +68,6 @@ module.exports = {
 
   schedules: {
     get: function (req, res) {
-      console.log('SESSION USER', req.session.user)
       models.schedules.get(req.session.user)
       .then(function(schedules) {
         res.send(schedules);
@@ -81,7 +75,6 @@ module.exports = {
     },
 
     post: function(req, res) {
-      console.log('INSERTING USER FOREIGN', req.session.user);
       var params = [req.body.medname, req.body.time, req.session.user];
       models.schedules.post(params, function (err, results) {
         if (err) {throw err}
@@ -90,7 +83,6 @@ module.exports = {
     },
 
     delete: function(req, res) {
-      console.log('delete request', req.body);
       var params = [req.body.time, req.session.user, req.body.meds_id];
       models.schedules.delete(params, function (err, count) {
         if (err) {throw err}

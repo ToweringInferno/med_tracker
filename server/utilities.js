@@ -2,7 +2,6 @@
 module.exports = {
 
   activeSession : function(req, res, next) {
-    console.log('CHECKING SESSION', req.session.user);
     if (!req.session.user) {
       console.log('REDIRECTING');
       res.redirect('/#!/signin');

@@ -10,13 +10,11 @@ module.exports = {
     getUser: function (user) {
       return knex('users').where('username', user.username)
       .then(function(userMatch) {
-        console.log('USERMATCH', userMatch);
         return userMatch;
       })
     },
 
     createUser: function (params, callback) {
-      console.log('post-models-users', params);
       knex.insert({username: params[0], password: params[1], phone: params[2]}).into('users')
         .catch(function(err) {
           callback(err);
@@ -33,7 +31,6 @@ module.exports = {
       return knex('schedules')
         .join('meds', 'schedules.meds_id', '=', 'meds.id')
         .where('users_id', sessionUser)
-        // .select('schedules.id', 'meds.medname', 'schedules.time')
         .then(function (response) {
           return response;
         })
@@ -45,12 +42,12 @@ module.exports = {
         .join('users', 'schedules.users_id', '=','users.id')
         .select('username', 'medname', 'time', 'phone')
         .then(function (response) {
-          console.log('GET RESPONSE', response);
           var now = (new Date()).toString().slice(16,21);
           var reminders = [];
+          console.log('NOW', now);
           for (var i = 0; i < response.length; i++) {
-            console.log('IS IT TIME?', response[i].time, now);
-            if (response[i].time === now) {
+            var format = response[i].time.slice(0,5);
+            if (format === now) {
               reminders.push(response[i]);
             }
           }
@@ -59,6 +56,10 @@ module.exports = {
     },
 
     sendReminders: function (reminders) {
+      console.log('SENDING REMINDERS');
+
+      var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
       reminders.forEach(function(reminder) {
         client.sms.messages.create({
         to: reminder.phone,
@@ -74,14 +75,6 @@ module.exports = {
         })
       })
     },
-
-    //  getMed: function (med) {
-    //   return knex('meds').where('medname', med.medname)
-    //   .then(function(medMatch) {
-    //     console.log('MEDMATCH', medMatch);
-    //     return medMatch;
-    //   })
-    // },
 
     post: function (params, callback) {
       knex.insert({medname: params[0]}).into('meds')
