@@ -1,5 +1,7 @@
 var knex = require('../db/index');
 var bcrypt = require('bcrypt');
+var twilio = require('twilio');
+var moment = require('moment');
 
 
 
@@ -16,7 +18,7 @@ module.exports = {
 
     createUser: function (params, callback) {
       console.log('post-models-users', params);
-      knex.insert({username: params[0], password: params[1]}).into('users')
+      knex.insert({username: params[0], password: params[1], phone: params[2]}).into('users')
         .catch(function(err) {
           callback(err);
         })
@@ -50,9 +52,28 @@ module.exports = {
         .where('users_id', sessionUser)
         // .select('schedules.id', 'meds.medname', 'schedules.time')
         .then(function (response) {
-          console.log('GET RESPONSE', response);
           return response;
         })
+    },
+
+    getAll: function (sessionUser) {
+      return knex('schedules')
+        .join('meds', 'schedules.meds_id', '=', 'meds.id')
+        .join('users', 'schedules.users_id', '=','users.id')
+        .select('username', 'medname', 'time', 'phone')
+        .then(function (response) {
+          console.log('GET RESPONSE', response);
+          var now = (new Date()).toString().slice(16,21);
+          var reminders = [];
+          for (var i = 0; i < response.length; i++) {
+            if (response[i].time) {}
+          }
+
+        })
+    },
+
+    sendReminders: function (reminders) {
+
     },
 
     //  getMed: function (med) {
@@ -78,12 +99,15 @@ module.exports = {
 
     delete: function(params, callback) {
       knex('schedules').where({time: params[0], users_id: params[1]}).del()
-        .catch(function(err) {
-            callback(err);
-        })
         .then(function(count) {
-          console.log('DELETED ', count);
-          callback(null, count);
+          knex('meds').where({id: params[2]}).del()
+            .catch(function(err) {
+              callback(err);
+            })
+            .then(function(count) {
+              console.log('DELETED ', count);
+              callback(null, count);
+            })
         })
     },
 

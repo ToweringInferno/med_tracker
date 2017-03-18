@@ -32,6 +32,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 			.then(function(reminders) {
         console.log('Reminders', reminders);
 				$scope.allReminders.reminders = reminders;
+        console.log('REMINDERS', reminders);
 				$scope.allReminders.reminders.data.forEach(function(object) {
 					$scope.allMeds.push(object.medname);
 				})
@@ -47,9 +48,10 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
 
 	$scope.remove = function($index) {
-		var deleteTarget = $scope.allReminders.reminders.data[$index].time;
+		var deleteTime = $scope.allReminders.reminders.data[$index].time;
+    var deleteMed = $scope.allReminders.reminders.data[$index].meds_id;
 
-		Reminders.deleteOne({time: deleteTarget})
+		Reminders.deleteOne({time: deleteTime, meds_id: deleteMed})
 		  .then(function(response) {
 		  	$scope.getReminders();
 		  })
