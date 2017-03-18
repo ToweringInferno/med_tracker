@@ -4,8 +4,6 @@ var utilities = require('./utilities.js');
 
 module.exports = function (app, express) {
 
-
-
   app.post('/user/signup', controllers.users.signup);
   app.post('/user/login', controllers.users.login);
   app.get('/user/logout', controllers.users.logout);
@@ -18,12 +16,6 @@ module.exports = function (app, express) {
       res.send('False');
     }
   });
-    // app.get('/logout', function (req, res) {
-    //   req.session.destroy(function () {
-    //       res.redirect('/login');
-    //   });
-    // });
-
 
   app.get('/reminders', utilities.activeSession, controllers.schedules.get);
   app.get('/', utilities.activeSession, controllers.schedules.get);
@@ -34,12 +26,5 @@ module.exports = function (app, express) {
 
   app.put('/reminders', utilities.activeSession, controllers.schedules.put);
 
-  // app.get('/*', utilities.activeSession, controllers.schedules.get);
-
-  // app.get('/api', controllers.api.get);
-
-
-  // app.post('/signup', userController.signup);
-  // app.post('/login', userController.login);
 
 };
