@@ -1,8 +1,7 @@
 var knex = require('../db/index');
 var bcrypt = require('bcrypt');
 var twilio = require('twilio');
-var moment = require('moment');
-
+require('dotenv').config();
 
 
 module.exports = {
@@ -27,22 +26,6 @@ module.exports = {
         })
     }
 
-    // comparePassword: function(params, callback) {
-    //   console.log('COMPARING WITH', knex('users').where({username: params[1]}).select('password'))
-    //   bcrypt.compare(params[0], knex('users').where({username: params[1]}).select('password'))
-    //     .catch(function(err) {
-    //       callback(err);
-    //     })
-    //     .then(function(isMatch) {
-    //       console.log('MATCHING', isMatch);
-    //       callback(null, isMatch);
-    //     })
-    // }
-
-    // hashPassword: function(password, function(err, hash) {
-
-    // })
-
   },
 
   schedules: {
@@ -56,7 +39,7 @@ module.exports = {
         })
     },
 
-    getAll: function (sessionUser) {
+    filterAll: function (sessionUser) {
       return knex('schedules')
         .join('meds', 'schedules.meds_id', '=', 'meds.id')
         .join('users', 'schedules.users_id', '=','users.id')
@@ -66,14 +49,30 @@ module.exports = {
           var now = (new Date()).toString().slice(16,21);
           var reminders = [];
           for (var i = 0; i < response.length; i++) {
-            if (response[i].time) {}
+            console.log('IS IT TIME?', response[i].time, now);
+            if (response[i].time === now) {
+              reminders.push(response[i]);
+            }
           }
-
+          return reminders;
         })
     },
 
     sendReminders: function (reminders) {
-
+      reminders.forEach(function(reminder) {
+        client.sms.messages.create({
+        to: reminder.phone,
+        from: process.env.TWILIO_NUMBER,
+        body: 'Greetings, ' + reminder.username + '! This is a reminder to take your ' + reminder.medname + '!'
+      }, function(err, message){
+          if (!err){
+            console.log('Success! The SID for this SMS message is:');
+            console.log(message.sid);
+          } else {
+            console.log('There is an Error')
+          }
+        })
+      })
     },
 
     //  getMed: function (med) {
@@ -124,4 +123,21 @@ module.exports = {
     }
   }
 }
+
+
+ // comparePassword: function(params, callback) {
+    //   console.log('COMPARING WITH', knex('users').where({username: params[1]}).select('password'))
+    //   bcrypt.compare(params[0], knex('users').where({username: params[1]}).select('password'))
+    //     .catch(function(err) {
+    //       callback(err);
+    //     })
+    //     .then(function(isMatch) {
+    //       console.log('MATCHING', isMatch);
+    //       callback(null, isMatch);
+    //     })
+    // }
+
+    // hashPassword: function(password, function(err, hash) {
+
+    // })
 

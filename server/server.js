@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var path = require('path');
 var db = require('./db');
 var session = require('express-session');
+var scheduler = require('./scheduler');
 
 
 var app = express();
@@ -24,8 +25,8 @@ require('./routes.js')(app, express);
 
 var port = process.env.PORT || 8080;
 
-
-
 app.listen(port, function() {console.log ('Check out the party on port ' + port)});
+
+// scheduler.start();
 
 module.exports = app;
