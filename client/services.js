@@ -36,6 +36,14 @@ angular.module('medTracker.services', [])
 		})
 	};
 
+  var toggleTaken = function(toggleTakenObj) {
+    return $http({
+      method: 'PUT',
+      url: '/toggleTaken',
+      data: toggleTakenObj
+    })
+  }
+
   var fetchCode = function(drugName) {
     return $http({
       method: 'GET',
