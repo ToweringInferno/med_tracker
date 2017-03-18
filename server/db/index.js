@@ -42,6 +42,7 @@ knex.schema.hasTable('schedules').then(function(exists) {
     knex.schema.createTable('schedules', function (schedule) {
       schedule.increments('id').primary();
       schedule.time('time', 100);
+      schedule.boolean('taken');
       // schedule.integer('meds_id').unsigned();
       schedule.integer('meds_id').references('id').inTable('meds').notNull().onDelete('cascade');
       // schedule.integer('users_id').unsigned();

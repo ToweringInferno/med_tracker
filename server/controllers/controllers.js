@@ -75,7 +75,7 @@ module.exports = {
     },
 
     post: function(req, res) {
-      var params = [req.body.medname, req.body.time, req.session.user];
+      var params = [req.body.medname, req.body.time, req.body.taken, req.session.user];
       models.schedules.post(params, function (err, results) {
         if (err) {throw err}
           res.sendStatus(201);

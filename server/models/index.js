@@ -49,15 +49,18 @@ module.exports = {
       return knex('schedules')
         .join('meds', 'schedules.meds_id', '=', 'meds.id')
         .join('users', 'schedules.users_id', '=','users.id')
-        .select('username', 'medname', 'time', 'phone')
+        .select('username', 'medname', 'time', 'phone', 'taken')
         .then(function (response) {
           var now = (new Date()).toString().slice(16,21);
           var reminders = [];
           console.log('NOW', now);
           for (var i = 0; i < response.length; i++) {
-            var format = response[i].time.slice(0,5);
-            if (format === now) {
-              reminders.push(response[i]);
+            console.log('TAKEN?', response[i].taken);
+            if (response[i].taken === false) {
+              var format = response[i].time.slice(0,5);
+              if (format === now) {
+                reminders.push(response[i]);
+              }
             }
           }
           return reminders;
@@ -102,7 +105,7 @@ module.exports = {
     post: function (params, callback) {
       knex.insert({medname: params[0]}).into('meds')
         .then(function(id) {
-          knex.insert({time: params[1], meds_id: id, users_id: params[2]}).into('schedules')
+          knex.insert({time: params[1], meds_id: id, taken: params[2], users_id: params[3]}).into('schedules')
           .catch(function(err) {
             callback(err);
           })
