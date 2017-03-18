@@ -6,7 +6,6 @@ require('dotenv').config();
 
 module.exports = {
   users: {
-
     getUser: function (user) {
       return knex('users').where('username', user.username)
       .then(function(userMatch) {
@@ -36,6 +35,16 @@ module.exports = {
         })
     },
 
+    getAll: function() {
+      return knex('schedules')
+        .catch(function(err) {
+            console.log(err);
+        })
+        .then(function(response) {
+          return response
+        })
+    },
+
     filterAll: function (sessionUser) {
       return knex('schedules')
         .join('meds', 'schedules.meds_id', '=', 'meds.id')
@@ -55,6 +64,20 @@ module.exports = {
         })
     },
 
+    reset: function(reminders, callback) {
+      console.log('RESETTING MODEL');
+      reminders.forEach(function(reminder) {
+        knex('schedules').update({taken: false})
+          .catch(function(err) {
+              callback(err);
+          })
+          .then(function(count) {
+            console.log('UPDATED', count);
+            callback(null, count);
+          })
+      })
+    },
+
     sendReminders: function (reminders) {
       console.log('SENDING REMINDERS');
 
@@ -70,7 +93,7 @@ module.exports = {
             console.log('Success! The SID for this SMS message is:');
             console.log(message.sid);
           } else {
-            console.log('There is an Error')
+            console.log('There is an Error', err);
           }
         })
       })
