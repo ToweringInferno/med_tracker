@@ -2,7 +2,7 @@ var models = require('../models')
 
 var reminderWorkerFactory = function(){
   return {
-    run: function(){
+    run: function() {
       models.schedules.filterAll()
         .then(function(reminders) {
           if (reminders.length !== 0) {
