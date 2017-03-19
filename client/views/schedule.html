@@ -29,11 +29,11 @@
 
 		<ul class='reminder-entries'>
 
-			<li ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:['taken','time']">
+			<li ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:'-time'">
 
-				<div class='toggleStyle reminder-entry alert-danger'>
+				<div class='toggleStyle reminder-entry' ng-class="{'alert-success': reminder.taken, 'alert-danger': !reminder.taken}">
 				  <!-- checkbox to toggle -->
-					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index)"></button>
+					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index, [reminder.id, reminder.taken])"></button>
 					<span> At </span>
 					<!-- time of reminder -->
 <!-- 					<span class="d-inline form-group">{{ reminder.time }} <button ng-click='editHandler()' ng-hide='flag'>Edit</button>
@@ -73,7 +73,7 @@
 						<button class="btn btn-xs btn-danger" ng-click="isCollapsed = !isCollapsed">Options</button>
 						<hr>
 						<div uib-collapse="isCollapsed">
-							<div class="well well-lg animated slideInDown">
+							<div class="well well-lg animated fadeIn">
 								<label>Options for {{reminder.medname}}</label>
 
 								<div class='information' style='font-size: 14px'>
