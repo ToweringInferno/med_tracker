@@ -5,6 +5,7 @@ var path = require('path');
 var db = require('./db');
 var session = require('express-session');
 var scheduler = require('./scheduler');
+var resetter = require('./resetter');
 
 
 var app = express();
@@ -28,5 +29,6 @@ var port = process.env.PORT || 8080;
 app.listen(port, function() {console.log ('Check out the party on port ' + port)});
 
 scheduler.start();
+resetter.start();
 
 module.exports = app;

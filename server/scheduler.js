@@ -12,17 +12,6 @@ var schedulerFactory =  function(){
   };
 };
 
-var resetFactory =  function(){
-  return {
-    start: function(){
-      new CronJob('00 * * * * *', function() {
-        console.log('Running Reset Worker');
-        resetWorker.run();
-      }, null, true, '');
-    }
-  };
-};
-
 
 
 module.exports = schedulerFactory();

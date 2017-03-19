@@ -1,4 +1,4 @@
-angular.module('medTracker.input', ['medTracker.services'])
+angular.module('medTracker.input', ['medTracker.services', 'ui.bootstrap'])
 
 .controller('InputController', [
 	'$scope',
@@ -6,6 +6,17 @@ angular.module('medTracker.input', ['medTracker.services'])
 	'Reminders',
 
  function($scope, $location, Reminders) {
+
+  $scope.mytime = new Date();
+
+  $scope.hstep = 1;
+  $scope.mstep = 15;
+
+  $scope.ismeridian = false;
+  $scope.toggleMode = function() {
+    $scope.ismeridian = ! $scope.ismeridian;
+  };
+
 
   $scope.addReminder = function () {
 

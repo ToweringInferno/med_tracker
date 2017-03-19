@@ -4,16 +4,12 @@ var models = require('../models')
 var resetWorkerFactory = function(){
   return {
     run: function() {
-      models.schedules.getAll()
-        .then(function(allReminders) {
-          models.schedules.reset(allReminders)
-            .catch(function(err){
-              console.log(err);
-            })
-            .then(function(reset) {
-              console.log('REMINDERS RESET', reset);
-            })
-        })
+      console.log('RESETTING');
+          models.schedules.reset(function(err, count) {
+            if (err) {throw err}
+              console.log("RESET", count);
+              return count;
+          })
     }
   };
 };
