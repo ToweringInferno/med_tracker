@@ -97,6 +97,7 @@ angular.module('medTracker.services', [])
   };
 
   var logout = function () {
+    console.log('SERVICES-AUTH-LOGOUT');
     return $http({
       method: 'GET',
       url: '/user/logout',
