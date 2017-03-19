@@ -31,7 +31,7 @@
 
 			<li ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:['taken','time']">
 
-				<div id='styleToggle' class='reminder-entry alert-danger'>
+				<div class='toggleStyle reminder-entry alert-danger'>
 				  <!-- checkbox to toggle -->
 					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index)"></button>
 					<span> At </span>
@@ -43,7 +43,7 @@
 	      		</div>
 	      	</span> -->
 					<!-- time of reminder -->
-					<label ng-click="editTime($index)">{{ reminder.time }}</label>
+					<label>{{ reminder.time }}</label>
 
 					<span>take </span>
 					<!-- text of reminder -->
@@ -93,6 +93,14 @@
 										</div>
 								  </form>
 						    </div>
+
+						    <div>
+						      <button ng-click='editHandler()' ng-hide='flag'>Change Time</button>
+						      <div ng-show='flag'>
+						      	<input ng-model='newtime' placeholder="Enter new time">
+						      	<button ng-click='editReminder($index, newtime)'>Submit</button>
+						      </div>
+					      </div>
 
 						    <button class='btn btn-danger text-center' ng-click="deleteReminder($index)">Delete</button>
 
