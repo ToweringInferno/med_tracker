@@ -12,11 +12,10 @@ angular.module('medTracker.schedule', ['medTracker.services'])
   Auth.isLoggedIn()
     .then(function(response) {
       if (response.data === 'True') {
-        console.log('LOCATION', $location);
-        $location.path('/schedule');
+        // $location.path('/schedule');
+        console.log("AUTHENTICATED");
       }
       else {
-        console.log('LOCATION FALSE', $location);
         $location.path('/signin');
       }
     })
