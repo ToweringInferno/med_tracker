@@ -10,6 +10,13 @@ angular.module('medTracker.services', [])
 		})
 	};
 
+  var getUsername = function() {
+    return $http({
+      method: 'GET',
+      url: '/user/username'
+    })
+  };
+
 	var addOne = function(reminder) {
 		console.log('POST reminder', reminder);
 		return $http({
@@ -36,11 +43,11 @@ angular.module('medTracker.services', [])
 		})
 	};
 
-  var toggleTaken = function(toggleTakenObj) {
+  var toggleTaken = function(toggleTaken) {
     return $http({
       method: 'PUT',
       url: '/toggleTaken',
-      data: toggleTakenObj
+      data: toggleTaken
     })
   }
 
@@ -61,6 +68,7 @@ angular.module('medTracker.services', [])
 
 	return {
 		getAll: getAll,
+    getUsername, getUsername,
 		addOne: addOne,
 		deleteOne: deleteOne,
 		updateOne: updateOne,

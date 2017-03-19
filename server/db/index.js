@@ -43,9 +43,9 @@ knex.schema.hasTable('schedules').then(function(exists) {
       schedule.increments('id').primary();
       schedule.time('time', 100);
       schedule.boolean('taken');
-      // schedule.integer('meds_id').unsigned();
+      schedule.integer('meds_id').unsigned();
       schedule.integer('meds_id').references('id').inTable('meds').notNull().onDelete('cascade');
-      // schedule.integer('users_id').unsigned();
+      schedule.integer('users_id').unsigned();
       schedule.integer('users_id').references('id').inTable('users').notNull().onDelete('cascade');
       schedule.timestamps();
     }).then(function (table) {
@@ -53,6 +53,11 @@ knex.schema.hasTable('schedules').then(function(exists) {
     });
   }
 });
+
+knex.schema.alterTable('schedules', function(schedule) {
+  schedule.boolean('taken').notNullable().defaultTo('False').alter();
+});
+
 
 
 module.exports = knex;

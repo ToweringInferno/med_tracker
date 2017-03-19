@@ -1,4 +1,13 @@
-<div id="input" class='container'>
+<div id="input" class='container animated slideInDown'>
+
+<nav class='navbar navbar-default navbar-static-top'>
+      <div class='text-center'>
+          <ul class='nav navbar-nav nav-center text-center'>
+            <li><button class="btn btn-primary navbar-btn" style='margin:10px' ui-sref="schedule">Back To Reminders</button></li>
+            <!-- <li><button ngclick="logout()" style='margin:10px' class="btn btn-primary navbar-btn">Logout</button></li> -->
+          </ul>
+      </div>
+    </nav>
 
 <!-- 	<form name='inputForm'>
     <div class="form-group">
@@ -28,12 +37,10 @@
 
 			<!-- time -->
 			<div class='row form-group'>
-
-				<input type='text' ng-model='reminder.time' class='col-xs-4 col-xs-offset-4 text-center' placeholder='the time to take it (format hh:mm)'>
+        <div uib-timepicker ng-model="reminder.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" class='col-xs-4 col-xs-offset-4 text-center' show-meridian="ismeridian">
+        </div>
 			</div>
-<!-- 			<div class='row'>
-				<input type='phone' ng-model='user.phone' class='col-xs-4 col-xs-offset-4' placeholder='Mobile Number'>
-			</div>	 -->
+
 			<div class='row'>
 				<button type='submit' ng-click='addReminder()' class='btn btn-lg btn-primary col-xs-4 col-xs-offset-4'>Create New Reminder</button>
 			</div>

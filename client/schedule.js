@@ -1,4 +1,4 @@
-angular.module('medTracker.schedule', ['medTracker.services'])
+angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 
 .controller('ScheduleController', [
 	'$scope',
@@ -8,6 +8,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 	function($scope, $location, Reminders, Auth) {
 
 
+    // basic authentication
   $scope.checkUser = function() {
   Auth.isLoggedIn()
     .then(function(response) {
@@ -23,14 +24,26 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
   $scope.checkUser();
 
+  $scope.username;
+
+  $scope.getUsername = function() {
+    Reminders.getUsername()
+      .then(function(username) {
+        $scope.username = username.data[0].username;
+      })
+  };
+
+  $scope.getUsername();
+
+
 	$scope.allReminders = {};
 	$scope.allMeds = [];
-	$scope.completed = false;
 
+
+  // Load new reminders each time page loads
 	$scope.getReminders = function() {
 		Reminders.getAll()
 			.then(function(reminders) {
-        console.log('Reminders', reminders);
 				$scope.allReminders.reminders = reminders;
         console.log('REMINDERS', reminders);
 				$scope.allReminders.reminders.data.forEach(function(object) {
@@ -46,21 +59,31 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
   $scope.getReminders();
 
+  // For reminder nav slider
+  $scope.isNavCollapsed = true;
+  $scope.isCollapsed = true;
+
+  // toggle reminders
   $scope.toggleTaken = function($index) {
   	// get the current status of 'taken' boolean value on specified reminder
   	var reminder = $scope.allReminders.reminders.data[$index];
   	var oldTakenStatus = reminder.taken;
   	var id = reminder.id;
-  	console.log('oldTakenStatus ', oldTakenStatus);
+  	console.log('oldTakenStatus', oldTakenStatus);
   	// reference the opposite (i.e., toggled) value
   	var newTakenStatus = !oldTakenStatus;
-  	var toggleTakenObj = {id: id, taken: newTakenStatus};
+    console.log('NEW TAKEN', newTakenStatus);
+  	var toggleTaken = {id: id, taken: newTakenStatus};
+
+    var toggleStyle = angular.element( document.querySelector('#styleToggle'));
+
+    newTakenStatus === true ? toggleStyle.addClass('alert-success').removeClass('alert-danger') : toggleStyle.addClass('alert-danger').removeClass('alert-success');
 
   	// make call to factory (Reminders) to toggle that value
-  	Reminders.toggleTaken(toggleTakenObj) 
+  	Reminders.toggleTaken(toggleTaken)
   	  .then(function(response) {
   		  reminder.taken = newTakenStatus;
-  		  reminder.taken ? ($scope.completed = true) : ($scope.completed = false);
+  		  reminder.taken ? ($scope.reminder.taken = true) : ($scope.completed = false);
   	  })
   	  .catch(function(error) {
   		  console.error(error);
@@ -75,7 +98,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
   // };
 
 
-	$scope.remove = function($index) {
+	$scope.deleteReminder = function($index) {
 		var deleteTime = $scope.allReminders.reminders.data[$index].time;
     var deleteMed = $scope.allReminders.reminders.data[$index].meds_id;
 
@@ -88,7 +111,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 			})
 	};
 
-	$scope.update = function($index, newtime) {
+	$scope.editReminder = function($index, newtime) {
 		var updateObj = {
 			time: $scope.allReminders.reminders.data[$index].time,
 			newTime: newtime
