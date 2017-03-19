@@ -53,10 +53,12 @@ module.exports = {
       })
   },
 
-  logout: function(req, res) {
-    req.session.destroy(function() {
-      res.redirect('/#!/signin');
-    });
+  logout: function(req, res) {   
+    console.log('SERVER-CONTROLLER-USER-LOGOUT');
+    utilities.endSession(req, res);
+    // req.session.destroy(function() {
+      // console.log('IN-REQ.SESSION.DESTROY', req.session)
+      // res.redirect('/#!/signin');
   },
 
   getUsername: function (req, res) {

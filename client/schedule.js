@@ -166,17 +166,18 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 							  });
 		  		  })
   		  });
+  };
 
   $scope.logout = function() {
     console.log('LOGOUT CLICKED');
     Auth.logout()
       .then(function(res) {
         console.log("LOGOUT SUCCESS", res);
+        $location.path('/signin');
       })
       .catch(function(error) {
         console.error(error)
       });
-  }
-};
+    }
 
 }]);
