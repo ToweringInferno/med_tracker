@@ -65,7 +65,8 @@ angular.module('medTracker.services', [])
 		deleteOne: deleteOne,
 		updateOne: updateOne,
     fetchCode: fetchCode,
-    getInteraction: getInteraction
+    getInteraction: getInteraction,
+    toggleTaken: toggleTaken
 	}
 })
 

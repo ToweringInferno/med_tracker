@@ -25,6 +25,7 @@ angular.module('medTracker.schedule', ['medTracker.services'])
 
 	$scope.allReminders = {};
 	$scope.allMeds = [];
+	$scope.completed = false;
 
 	$scope.getReminders = function() {
 		Reminders.getAll()
@@ -58,12 +59,20 @@ angular.module('medTracker.schedule', ['medTracker.services'])
   	// make call to factory (Reminders) to toggle that value
   	Reminders.toggleTaken(toggleTakenObj) 
   	  .then(function(response) {
-  		  $scope.allReminders.reminders.data[$index].taken = newTakenStatus;
+  		  reminder.taken = newTakenStatus;
+  		  reminder.taken ? ($scope.completed = true) : ($scope.completed = false);
   	  })
   	  .catch(function(error) {
   		  console.error(error);
   	  })
   };
+
+  // $scope.editTime = function($index, newTime){
+  // 	var reminder = $scope.allReminders.reminders.data[$index];
+  // 	var originalTime = reminder.time;
+  // 	var id = reminder.id;
+  // 	console.log('originalTime: ', originalTime);
+  // };
 
 
 	$scope.remove = function($index) {

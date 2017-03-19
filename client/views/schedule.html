@@ -1,6 +1,20 @@
 <div id="schedule" class='container'>
 
-	<div class='well well-lg text-center radius shadow'>
+    <nav class='navbar navbar-static-top navigation'>
+      <div class='container'>
+<!--           <a href='/' class='navbar-brand title'><span style="font-size: 48px; font-family: Arial-Unicode-MS;">R</span>eminder<span style="font-size: 48px; font-family: Arial-Unicode-MS;">X</span></a> -->
+          <ul class='nav navbar-nav navbar-center text-center'>
+            <li><a ui-sref="schedule">All Reminders</a></li>
+            <li><a ui-sref="input">Add New Reminder</a></li>
+            <li><a ui-sref="signin">Logout</a></li>
+          </ul>
+      </div>
+    </nav>
+
+  <div class='schedule-greetings text-center'><span>Hi </span><span>{{  }}</span>, here are your medication reminders for today:</div>
+
+	<div class='well well-lg radius shadow col-md-8 col-md-offset-2 text-center'>
+
 		<div class='row features'>
 			<span class='glyphicon glyphicon-list-alt'></span>
 			<h1 class='schedule-title'>Schedule</h1>	
@@ -14,32 +28,41 @@
 			</a>
 		</div>
 
-		<ul id='reminder-entries'>
-			<li class='reminder text-center' ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:reminder.time">
+		<ul class='reminder-entries'>
 
-				<div class="reminder-entry">
+			<li ng-class="{completed}" ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:reminder.time" ng-click="completed = true">
+
+				<div class='reminder-entry text-left'>
 				  <!-- checkbox to toggle -->
-					<input class="toggle" type="checkbox" ng-change="toggleTaken($index)">
+					<input class="toggle" type="checkbox" ng-model='reminder.taken' ng-change="toggleTaken($index)">
+					<span> At </span>
 					<!-- time of reminder -->
-					<span class="d-inline form-group">{{ reminder.time }} <button ng-click='editHandler()' ng-hide='flag'>Edit</button>
+<!-- 					<span class="d-inline form-group">{{ reminder.time }} <button ng-click='editHandler()' ng-hide='flag'>Edit</button>
 						<div>
 							<input type='text' ng-show='flag' ng-model='newtime' placeholder="New Time">
 	      		  <button type='submit' ng-show='flag' ng-click='update($index, newtime)'>Update</button>
 	      		</div>
-	      	</span>
+	      	</span> -->
+					<!-- time of reminder -->
+					<label ng-dblclick="editTime($index)">{{ reminder.time }}</label>
 
+					<span>take </span>					
 					<!-- text of reminder -->
-					<label ng-dblclick="editReminder(reminder)">{{reminder.title}}</label>
+					<label ng-dblclick="editReminder($index)">{{ reminder.medname }}</label>
 
-					<div class="d-inline form-group">{{ reminder.medname }}<button ng-click="remove($index)">x</button></div>
+<!-- 					<div class="d-inline form-group">{{ reminder.medname }}<button ng-click="remove($index)">x</button></div> -->
 
           <!-- delete button -->
-					<button class="destroy" ng-click="remove(todo)"></button>
+					<button class='btn btn-xs btn-danger' ng-click="deleteReminder($index)">delete</button>
 
 				</div>
+			</li>
 
+		</ul>
 
-			<form name='scheduleForm' ng-submit='signup()' >
+	</div>
+
+<!-- 			<form name='scheduleForm' ng-submit='signup()' >
 				<div class='row form-group'>
 					<input type='text' ng-model='user.username' class='col-xs-4 col-xs-offset-4 text-center' placeholder='Username'>
 				</div>
@@ -52,12 +75,7 @@
 				<div class='row'>
 					<button class='btn btn-primary btn-lg col-xs-4 col-xs-offset-4'>SignUp</button>
 				</div>
-			</form>
-			</li>
-		</ul>
-
-	</div>
-
+			</form> -->
 
 	<div class='row text-center features'>
 
@@ -73,3 +91,9 @@
 	</div>
 
 </div>
+
+<!-- reminder li -->
+<!-- class="reminder-entry" -->
+
+
+
