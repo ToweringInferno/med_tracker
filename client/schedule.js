@@ -45,9 +45,14 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 		Reminders.getAll()
 			.then(function(reminders) {
 				$scope.allReminders.reminders = reminders;
-        console.log('REMINDERS', reminders);
-				$scope.allReminders.reminders.data.forEach(function(object) {
-					$scope.allMeds.push(object.medname);
+        console.log('REMINDERS', reminders.data);
+				$scope.allReminders.reminders.data.forEach(function(reminder, i) {
+
+          // var toggleStyleList = document.getElementsByClassName("toggleStyle");
+          // console.log('TOGGLE ELEMENTS OTHER', toggleStyleList[i]);
+          console.log('REMINDER TAKEN', reminder.taken);
+
+            $scope.allMeds.indexOf(reminder.medname) === -1 ? $scope.allMeds.push(reminder.medname) : console.log('Already exists')
 				})
 				console.log('MED NAMES', $scope.allMeds);
 			})
@@ -63,44 +68,25 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
   $scope.isNavCollapsed = true;
   $scope.isCollapsed = true;
 
+
+
   // toggle reminders
-  $scope.toggleTaken = function($index) {
+  $scope.toggleTaken = function($index, params) {
+
   	// get the current status of 'taken' boolean value on specified reminder
-  	var reminder = $scope.allReminders.reminders.data[$index];
-  	var oldTakenStatus = reminder.taken;
-  	var id = reminder.id;
-  	console.log('oldTakenStatus', oldTakenStatus);
+  	console.log('oldTakenStatus', params);
+    // console.log('LOGGED REMINDER', );
   	// reference the opposite (i.e., toggled) value
-  	var newTakenStatus = !oldTakenStatus;
+  	var newTakenStatus = !params[1];
     console.log('NEW TAKEN', newTakenStatus);
-  	var toggleTaken = {id: id, taken: newTakenStatus};
-
-    // var toggleStyle = angular.element(element.getElementsByClassName('toggleStyle'));
-
-    // var toggleStyle= $document.find('div').filter(function() {
-    //             return angular.element(this).hasClass('toggleStyle');
-    // });
-
-    var toggleStyle = document.getElementsByClassName("toggleStyle");
-
-    console.log('TOGGLE ELEMENTS', toggleStyle[$index]);
-
-
-    if (newTakenStatus === true) {
-      toggleStyle[$index].classList.add('alert-success');
-      toggleStyle[$index].classList.remove('alert-danger');
-    }
-
-    else {
-      toggleStyle[$index].classList.add('alert-danger');
-      toggleStyle[$index].classList.remove('alert-success');
-    }
+  	var reminderObj = {id: params[0], taken: newTakenStatus};
+    console.log('REMINDER OBJ', reminderObj);
 
   	// make call to factory (Reminders) to toggle that value
-  	Reminders.toggleTaken(toggleTaken)
+  	Reminders.toggleTaken(reminderObj)
   	  .then(function(response) {
-  		  reminder.taken = newTakenStatus;
-  		  reminder.taken ? ($scope.reminder.taken = true) : ($scope.completed = false);
+        console.log('TOGGLED');
+  		  $scope.getReminders();
   	  })
   	  .catch(function(error) {
   		  console.error(error);
