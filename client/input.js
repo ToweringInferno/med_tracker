@@ -23,10 +23,13 @@ angular.module('medTracker.input', ['medTracker.services', 'ui.bootstrap'])
 
   $scope.checkUser();
 
+  // for time picker
   $scope.mytime = new Date();
 
   $scope.hstep = 1;
   $scope.mstep = 15;
+
+  $scope.ismeridian = false;
 
 
   $scope.addReminder = function () {

@@ -1,40 +1,39 @@
-<div id="schedule" class='container'>
+<div id="schedule" class='container animated fadeIn'>
 
-    <nav class='navbar navbar-static-top navigation'>
-      <div class='container'>
-<!--           <a href='/' class='navbar-brand title'><span style="font-size: 48px; font-family: Arial-Unicode-MS;">R</span>eminder<span style="font-size: 48px; font-family: Arial-Unicode-MS;">X</span></a> -->
-          <ul class='nav navbar-nav navbar-center text-center'>
-            <li><a ui-sref="schedule">All Reminders</a></li>
-            <li><a ui-sref="input">Add New Reminder</a></li>
-            <li><a ui-sref="signin">Logout</a></li>
+    <nav class='navbar navbar-default navbar-static-top'>
+      <div class='text-center'>
+          <ul class='nav navbar-nav nav-center text-center'>
+            <li><button class="btn btn-primary navbar-btn" style='margin:10px' ui-sref="schedule">Refresh Reminders</button></li>
+            <li><button ngclick="logout()" style='margin:10px' class="btn btn-primary navbar-btn">Logout</button></li>
           </ul>
       </div>
     </nav>
 
-  <div class='schedule-greetings text-center'><span>Hi </span><span>{{  }}</span>, here are your medication reminders for today:</div>
+  <div class='schedule-greetings text-center'><span>Welcome </span><span>{{username}}</span>, here are today's medication reminders:</div>
 
 	<div class='well well-lg radius shadow col-md-8 col-md-offset-2 text-center'>
 
 		<div class='row features'>
 			<span class='glyphicon glyphicon-list-alt'></span>
-			<h1 class='schedule-title'>Schedule</h1>	
-			<input type='text' ng-model='search' placeholder='Search by Medication'>
+			<h1 class='schedule-title'>Daily Reminders</h1>
+			<button class="btn btn-primary text-center" style='margin:10px' ui-sref="input">Add New Reminder</button>
+			<!-- <input type='text' ng-model='search' placeholder='Search by Medication'> -->
 		</div>
-
-		<div class='information'>
-			Info for you:
-			<a href='http://google.com/#q={{interaction}}&*'>
-			{{interaction}}
-			</a>
-		</div>
+<!--
+		<div class="row">
+      <div class="search">
+				<input type="text" ng-model='search' class="form-control input-sm" maxlength="64" placeholder="Search" />
+				 <button type="submit" class="btn btn-primary btn-sm">Search</button>
+		  </div>
+	  </div> -->
 
 		<ul class='reminder-entries'>
 
-			<li ng-class="{completed}" ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:reminder.time" ng-click="completed = true">
+			<li ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:['taken','time']">
 
-				<div class='reminder-entry text-left'>
+				<div id='styleToggle' class='reminder-entry alert-danger'>
 				  <!-- checkbox to toggle -->
-					<input class="toggle" type="checkbox" ng-model='reminder.taken' ng-change="toggleTaken($index)">
+					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index)"></button>
 					<span> At </span>
 					<!-- time of reminder -->
 <!-- 					<span class="d-inline form-group">{{ reminder.time }} <button ng-click='editHandler()' ng-hide='flag'>Edit</button>
@@ -44,20 +43,63 @@
 	      		</div>
 	      	</span> -->
 					<!-- time of reminder -->
-					<label ng-dblclick="editTime($index)">{{ reminder.time }}</label>
+					<label ng-click="editTime($index)">{{ reminder.time }}</label>
 
-					<span>take </span>					
+					<span>take </span>
 					<!-- text of reminder -->
-					<label ng-dblclick="editReminder($index)">{{ reminder.medname }}</label>
+					<label>{{ reminder.medname }}</label>
 
-<!-- 					<div class="d-inline form-group">{{ reminder.medname }}<button ng-click="remove($index)">x</button></div> -->
 
-          <!-- delete button -->
-					<button class='btn btn-xs btn-danger' ng-click="deleteReminder($index)">delete</button>
+					<!-- <div>
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">A menu</a>
+						</div>
+						<div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+							<ul class="nav navbar-nav">
+								<li><a href="#">Link 1</a></li>
+								<li><a href="#">Link 2</a></li>
+							</ul>
+						</div>
+					</nav>
+					</div> -->
 
+					<div id="options" style='float:right'>
+						<button class="btn btn-xs btn-danger" ng-click="isCollapsed = !isCollapsed">Options</button>
+						<hr>
+						<div uib-collapse="isCollapsed">
+							<div class="well well-lg animated slideInDown">
+								<label>Options for {{reminder.medname}}</label>
+
+								<div class='information' style='font-size: 14px'>
+									Learn About Interactions:
+									<a href='http://google.com/#q={{interaction}}&*'>
+									{{interaction}}
+									</a>
+								</div>
+
+								<div class='row text-center features'>
+					        <form>
+										<div> <label style='font-size: 14px'>Compare with:
+										<select ng-model="selectedDrug" ng-options="medname for medname in allMeds">
+										</select>
+										<button ng-click="makeComparison(selectedDrug, reminder.medname)">Get Interaction</button>
+										</label>
+										</div>
+								  </form>
+						    </div>
+
+						    <button class='btn btn-danger text-center' ng-click="deleteReminder($index)">Delete</button>
+
+							</div>
+					</div>
 				</div>
 			</li>
-
 		</ul>
 
 	</div>
@@ -71,24 +113,13 @@
 				</div>
 				<div class='row form-group'>
 					<input type='phone' ng-model='user.phone' class='col-xs-4 col-xs-offset-4 text-center' placeholder='Mobile Number'>
-				</div>			
+				</div>
 				<div class='row'>
 					<button class='btn btn-primary btn-lg col-xs-4 col-xs-offset-4'>SignUp</button>
 				</div>
 			</form> -->
 
-	<div class='row text-center features'>
 
-        <form>
-					<div> <label>Compare with:
-					<select ng-model="selectedDrug" ng-options="medname for medname in allMeds">
-					</select>
-					<button ng-click="makeComparison(selectedDrug, reminder.medname)">Get Interaction</button>
-					</label>
-					</div>
-			  </form>
-
-	</div>
 
 </div>
 

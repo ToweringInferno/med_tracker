@@ -18,14 +18,14 @@ module.exports = function (app, express) {
     }
   });
 
-  app.get('/reminders', utilities.activeSession, controllers.schedules.get);
-  app.get('/', utilities.activeSession, controllers.schedules.get);
+  app.get('/reminders', controllers.schedules.get);
+  app.get('/', controllers.schedules.get);
 
-  app.post('/reminders', utilities.activeSession, controllers.schedules.post);
+  app.post('/reminders', controllers.schedules.post);
 
-  app.post('/delete', utilities.activeSession, controllers.schedules.delete);
+  app.post('/delete', controllers.schedules.delete);
 
-  app.put('/reminders', utilities.activeSession, controllers.schedules.put);
+  app.put('/reminders', controllers.schedules.put);
 
   app.put('/toggleTaken', controllers.schedules.toggleTaken);
 

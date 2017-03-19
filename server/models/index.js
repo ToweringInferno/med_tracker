@@ -54,7 +54,7 @@ module.exports = {
           console.log('NOW', now);
           for (var i = 0; i < response.length; i++) {
             console.log('TAKEN?', response[i].taken);
-            if (response[i].taken === false) {
+            if (response[i].taken === 0) {
               var format = response[i].time.slice(0,5);
               if (format === now) {
                 reminders.push(response[i]);
@@ -66,12 +66,13 @@ module.exports = {
     },
 
     reset: function(callback) {
-        knex('schedules').update({taken: false})
+      console.log('CALLING RESET');
+        knex('schedules').update('taken', false)
           .catch(function(err) {
             callback(err);
           })
           .then(function(count) {
-            console.log('UPDATED', count);
+            console.log('RESET COUNT', count);
             callback(null, count);
           })
     },
@@ -135,9 +136,9 @@ module.exports = {
             callback(null, count);
           })
     },
-    toggleTaken: function(toggleTakenObj, callback) {
-      knex('schedules').where({'id': toggleTakenObj.id})
-      .update({taken: toggleTakenObj.taken})
+    toggleTaken: function(toggleTaken, callback) {
+      knex('schedules').where({'id': toggleTaken.id})
+      .update({taken: toggleTaken.taken})
       .catch(function(err) {
         callback(err);
       })

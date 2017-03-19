@@ -1,5 +1,4 @@
 var knex = require('../db/index');
-var Q = require('q');
 var session = require('express-session');
 var utilities = require('../utilities.js');
 var bcrypt = require('bcrypt');
@@ -61,7 +60,6 @@ module.exports = {
   },
 
   getUsername: function (req, res) {
-    console.log('SEARCHING USER ID', req.session.user);
     models.users.getUsername(req.session.user)
     .then(function(username) {
       res.send(username)
