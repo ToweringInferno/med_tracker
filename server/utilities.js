@@ -18,6 +18,25 @@ module.exports = {
       console.log('NEW session', req.session);
       res.redirect('/#!/schedule');
     });
+  },
+
+  endSession : function(req, res) {
+    req.session.destroy(function() {
+      console.log('SESSION ENDED -- REDIRECTING', req.session);
+      res.redirect('/#!/signin');
+    });
+
   }
 
-}
+};
+
+  // logout: function(req, res) {
+  //   console.log('SERVER-CONTROLLER-USER-LOGOUT');
+  //   req.session.destroy(function() {
+  //     console.log('IN-REQ.SESSION.DESTROY', req.session)
+  //     res.redirect('/#!/signin');
+  //   });
+  // },
+
+
+

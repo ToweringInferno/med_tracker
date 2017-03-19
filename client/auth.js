@@ -3,8 +3,9 @@ angular.module('medTracker.auth', ['medTracker.services', 'ui.bootstrap'])
 .controller('AuthController', [
   '$scope',
   '$location',
+  '$window',
   'Auth',
-  function($scope, $location, Auth) {
+  function($scope, $location, $window, Auth) {
 
   // $scope.nation= "AT";
 
@@ -17,15 +18,20 @@ angular.module('medTracker.auth', ['medTracker.services', 'ui.bootstrap'])
   };
 
   $scope.login = function () {
+    console.log('LOGGING IN');
 
     var user = {
       username: $scope.user.username,
       password: $scope.user.password
-    }
+    };
 
     Auth.login(user)
       .then(function (res) {
         $location.path('/schedule');
+        console.log('setting $location.path to /schedule');
+        $window.location.reload();
+        console.log('reloading page');
+        // $route.reload();
       })
       .catch(function (error) {
         $scope.alerts.push({msg: error.data});
