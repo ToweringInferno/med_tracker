@@ -23,14 +23,9 @@ module.exports = {
             })
           }
           else {
-            // next(new Error('That username is already taken'));
             console.error('That username is already taken');
-            res.redirect('/#!/signup');
+            res.status(403).send('Sorry, username is taken!');
           }
-          // bcrypt.hash(password, null, null, function(err, hash) {
-          //   console.log('HASHED', hash);
-          //   if (err) {throw err}
-          // })
         })
   },
 
@@ -47,14 +42,14 @@ module.exports = {
             }
             else {
               // next(new Error('Password does not match, please try again'));
-              console.error('Username is taken');
-              res.redirect('/#!/signin')
+              console.error('Password does not match');
+              res.status(403).send('Password Incorrect');
             }
 
           }
           else {
-            next(new Error('User does not exist, please create account'));
-            res.redirect('/#!/signin')
+            console.error('User does not exist, please create account');
+            res.status(404).send('Sorry, we coudn\'t find that user!');
           }
       })
   },
@@ -63,6 +58,14 @@ module.exports = {
     req.session.destroy(function() {
       res.redirect('/#!/signin');
     });
+  },
+
+  getUsername: function (req, res) {
+    console.log('SEARCHING USER ID', req.session.user);
+    models.users.getUsername(req.session.user)
+    .then(function(username) {
+      res.send(username)
+    })
   }
 },
 

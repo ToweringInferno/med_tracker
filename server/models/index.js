@@ -13,6 +13,14 @@ module.exports = {
       })
     },
 
+    getUsername: function (user) {
+      return knex('users').where('id', user).select('username')
+      .then(function(username) {
+        console.log('getuser', username)
+        return username;
+      })
+    },
+
     createUser: function (params, callback) {
       knex.insert({username: params[0], password: params[1], phone: params[2]}).into('users')
         .catch(function(err) {
@@ -32,16 +40,6 @@ module.exports = {
         .where('users_id', sessionUser)
         .then(function (response) {
           return response;
-        })
-    },
-
-    getAll: function() {
-      return knex('schedules')
-        .catch(function(err) {
-            console.log(err);
-        })
-        .then(function(response) {
-          return response
         })
     },
 
@@ -67,18 +65,15 @@ module.exports = {
         })
     },
 
-    reset: function(reminders, callback) {
-      console.log('RESETTING MODEL');
-      reminders.forEach(function(reminder) {
+    reset: function(callback) {
         knex('schedules').update({taken: false})
           .catch(function(err) {
-              callback(err);
+            callback(err);
           })
           .then(function(count) {
             console.log('UPDATED', count);
             callback(null, count);
           })
-      })
     },
 
     sendReminders: function (reminders) {

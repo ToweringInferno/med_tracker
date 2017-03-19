@@ -7,6 +7,7 @@ module.exports = function (app, express) {
   app.post('/user/signup', controllers.users.signup);
   app.post('/user/login', controllers.users.login);
   app.get('/user/logout', controllers.users.logout);
+  app.get('/user/username', controllers.users.getUsername);
 
   app.get('/user/isLoggedIn', function(req, res) {
     if (req.session.user) {

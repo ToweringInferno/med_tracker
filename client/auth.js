@@ -1,10 +1,20 @@
-angular.module('medTracker.auth', ['medTracker.services'])
+angular.module('medTracker.auth', ['medTracker.services', 'ui.bootstrap'])
 
 .controller('AuthController', [
   '$scope',
   '$location',
   'Auth',
   function($scope, $location, Auth) {
+
+  // $scope.nation= "AT";
+
+  // console.log('SCOPE NATION', $scope.nation);
+
+  $scope.alerts = [];
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
 
   $scope.login = function () {
 
@@ -18,6 +28,7 @@ angular.module('medTracker.auth', ['medTracker.services'])
         $location.path('/schedule');
       })
       .catch(function (error) {
+        $scope.alerts.push({msg: error.data});
         console.error(error);
       });
 
@@ -33,12 +44,12 @@ angular.module('medTracker.auth', ['medTracker.services'])
       phone: $scope.user.phone
     }
 
-
     Auth.signup(user)
       .then(function (res) {
         $location.path('/schedule');
       })
       .catch(function (error) {
+        $scope.alerts.push({msg: error.data});
         console.error(error);
       });
 
@@ -46,5 +57,7 @@ angular.module('medTracker.auth', ['medTracker.services'])
       $scope.user.password = '';
       $scope.user.phone = '';
   };
+
+
 
 }]);

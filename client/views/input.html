@@ -17,7 +17,7 @@
 		<!-- title -->
 		<div class='row features'>
 			<span class='glyphicon glyphicon-pencil'></span>
-			<h1 class='input-title'>New Reminder</h1>	
+			<h1 class='input-title'>New Reminder</h1>
 		</div>
 
 		<form name='inputForm' ng-submit='signup()'>
@@ -29,15 +29,16 @@
 
 			<!-- time -->
 			<div class='row form-group'>
+
 				<input type='text' ng-model='reminder.time' class='col-xs-4 col-xs-offset-4 text-center' placeholder='the time to take it (format hh:mm)'>
 			</div>
 <!-- 			<div class='row'>
 				<input type='phone' ng-model='user.phone' class='col-xs-4 col-xs-offset-4' placeholder='Mobile Number'>
-			</div>	 -->		
+			</div>	 -->
 			<div class='row'>
 				<button type='submit' ng-click='addReminder()' class='btn btn-lg btn-primary col-xs-4 col-xs-offset-4'>Create New Reminder</button>
 			</div>
 		</form>
-	</div>	
+	</div>
 
 </div>

@@ -37,7 +37,7 @@ app.config([
   $urlRouterProvider.otherwise('schedule');
 
   // $httpProvider.interceptors.push('AttachTokens');
-}])
+}]);
 
 // .factory('AttachTokens', function ($window) {
 
