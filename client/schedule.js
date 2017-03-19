@@ -13,7 +13,6 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
   Auth.isLoggedIn()
     .then(function(response) {
       if (response.data === 'True') {
-        // $location.path('/schedule');
         console.log("AUTHENTICATED");
       }
       else {
@@ -47,9 +46,6 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 				$scope.allReminders.reminders = reminders;
         console.log('REMINDERS', reminders.data);
 				$scope.allReminders.reminders.data.forEach(function(reminder, i) {
-
-          // var toggleStyleList = document.getElementsByClassName("toggleStyle");
-          // console.log('TOGGLE ELEMENTS OTHER', toggleStyleList[i]);
           console.log('REMINDER TAKEN', reminder.taken);
 
             $scope.allMeds.indexOf(reminder.medname) === -1 ? $scope.allMeds.push(reminder.medname) : console.log('Already exists')
@@ -63,6 +59,7 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 
 
   $scope.getReminders();
+
 
   // For reminder nav slider
   $scope.isNavCollapsed = true;
