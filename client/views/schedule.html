@@ -18,8 +18,8 @@
 			<li class='reminder text-center' ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:reminder.time">
 
 				<div class="reminder-entry">
-				  <!-- checkbox -->
-					<input class="toggle" type="checkbox" ng-model="reminder.completed" ng-change="toggleCompleted($index)">
+				  <!-- checkbox to toggle -->
+					<input class="toggle" type="checkbox" ng-change="toggleTaken($index)">
 					<!-- time of reminder -->
 					<span class="d-inline form-group">{{ reminder.time }} <button ng-click='editHandler()' ng-hide='flag'>Edit</button>
 						<div>

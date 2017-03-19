@@ -27,5 +27,7 @@ module.exports = function (app, express) {
 
   app.put('/reminders', utilities.activeSession, controllers.schedules.put);
 
+  app.put('/toggleTaken', controllers.schedules.toggleTaken);
+
 
 };

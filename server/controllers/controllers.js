@@ -100,6 +100,14 @@ module.exports = {
         if (err) {throw err}
           res.sendStatus(200);
       })
+    },
+    toggleTaken: function(req, res) {
+      console.log('TOGGLE TAKEN', req.body.taken);
+      models.schedules.toggleTaken(req.body, function(err, update) {
+        if (err) {throw err}
+          res.sendStatus(200);
+      })
+
     }
   }
 };
