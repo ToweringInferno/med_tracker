@@ -76,7 +76,6 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
   	var toggleTaken = {id: id, taken: newTakenStatus};
 
     // var toggleStyle = angular.element(element.getElementsByClassName('toggleStyle'));
-
     // var toggleStyle= $document.find('div').filter(function() {
     //             return angular.element(this).hasClass('toggleStyle');
     // });

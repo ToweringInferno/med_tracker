@@ -30,7 +30,8 @@
 		<ul class='reminder-entries'>
 
 			<li ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:['taken','time']">
-
+<!-- ng-class="$variableToEvaluate ? 'class-if-true' : 'class-if-false'"> -->
+<!-- ng-click="toggle=!toggle" ng-class="toggle ? 'class1' : 'class2'" -->
 				<div class='row toggleStyle reminder-entry alert-danger'>
 				  <!-- checkbox to toggle -->
 					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index)"></button>
@@ -42,6 +43,8 @@
 	      		  <button type='submit' ng-show='flag' ng-click='update($index, newtime)'>Update</button>
 	      		</div>
 	      	</span> -->
+
+	      	
 					<!-- time of reminder -->
 					<label>{{ reminder.time }}</label>
 
