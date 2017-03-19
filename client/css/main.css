@@ -25,6 +25,10 @@
 .schedule-title {
 	color: #cc33ff;
 }
+.schedule-greetings {
+	font-size: 28px;
+	color: #6666ff;
+}
 
 input {
 	line-height: 2.5;
@@ -43,5 +47,38 @@ input {
 	padding-top: 10px;
 }
 
+.reminder-entries {
+	list-style: none;
+}
+.reminder-entries li {
+	font-size: 20px;
+	display: block;
+	/*border-bottom: .5px solid #ededed;*/
+}
+.reminder-entry {
+	border: 0.5px solid #87a4d3;
+	border-radius: 10px;
+	margin: 5px;
+	padding-left: 40px;
+/*	box-sizing: content-box;
+  -webkit-appearance: textfield;
+	border-radius: 0.5px;  */
+}
+
+input[type="checkbox"] {
+	outline: none;
+}
+
+.completed {
+	/*color: gray;*/
+	text-decoration: line-through;
+}
+
+/*.destroy {
+	border: none;
+}*/
+
+
+/*<span class='glyphicon glyphicon-list-alt'></span>*/
 
 /* glyphicon alt color #5bc0de */
