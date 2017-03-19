@@ -79,6 +79,7 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
   	// reference the opposite (i.e., toggled) value
   	var newTakenStatus = !params[1];
     console.log('NEW TAKEN', newTakenStatus);
+
   	var reminderObj = {id: params[0], taken: newTakenStatus};
     console.log('REMINDER OBJ', reminderObj);
 

@@ -11,9 +11,9 @@
 
   <div class='schedule-greetings text-center'><span>Welcome </span><span>{{username}}</span>, here are today's medication reminders:</div>
 
-	<div class='well well-lg radius shadow col-md-8 col-md-offset-2 text-center'>
+	<div class='well well-lg radius shadow col-md-8 col-md-offset-2'>
 
-		<div class='row features'>
+		<div class='row features text-center'>
 			<span class='glyphicon glyphicon-list-alt'></span>
 			<h1 class='schedule-title'>Daily Reminders</h1>
 			<button class="btn btn-primary text-center" style='margin:10px' ui-sref="input">Add New Reminder</button>
@@ -28,10 +28,10 @@
 	  </div> -->
 
 		<ul class='reminder-entries'>
-
-			<li ng-repeat="reminder in allReminders.reminders.data | filter:search | orderBy:'-time'">
+			<li ng-repeat="reminder in allReminders.reminders.data | orderBy:'-time'">
 
 				<div class='toggleStyle reminder-entry' ng-class="{'alert-success': reminder.taken, 'alert-danger': !reminder.taken}">
+
 				  <!-- checkbox to toggle -->
 					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index, [reminder.id, reminder.taken])"></button>
 					<span> At </span>
@@ -42,6 +42,8 @@
 	      		  <button type='submit' ng-show='flag' ng-click='update($index, newtime)'>Update</button>
 	      		</div>
 	      	</span> -->
+
+	      	
 					<!-- time of reminder -->
 					<label>{{ reminder.time }}</label>
 
@@ -71,7 +73,7 @@
 
 					<div id="options" style='float:right'>
 						<button class="btn btn-xs btn-danger" ng-click="isCollapsed = !isCollapsed">Options</button>
-						<hr>
+						<!-- <hr> -->
 						<div uib-collapse="isCollapsed">
 							<div class="well well-lg animated fadeIn">
 								<label>Options for {{reminder.medname}}</label>
