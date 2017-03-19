@@ -75,9 +75,26 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
     console.log('NEW TAKEN', newTakenStatus);
   	var toggleTaken = {id: id, taken: newTakenStatus};
 
-    var toggleStyle = angular.element( document.querySelector('#styleToggle'));
+    // var toggleStyle = angular.element(element.getElementsByClassName('toggleStyle'));
 
-    newTakenStatus === true ? toggleStyle.addClass('alert-success').removeClass('alert-danger') : toggleStyle.addClass('alert-danger').removeClass('alert-success');
+    // var toggleStyle= $document.find('div').filter(function() {
+    //             return angular.element(this).hasClass('toggleStyle');
+    // });
+
+    var toggleStyle = document.getElementsByClassName("toggleStyle");
+
+    console.log('TOGGLE ELEMENTS', toggleStyle[$index]);
+
+
+    if (newTakenStatus === true) {
+      toggleStyle[$index].classList.add('alert-success');
+      toggleStyle[$index].classList.remove('alert-danger');
+    }
+
+    else {
+      toggleStyle[$index].classList.add('alert-danger');
+      toggleStyle[$index].classList.remove('alert-success');
+    }
 
   	// make call to factory (Reminders) to toggle that value
   	Reminders.toggleTaken(toggleTaken)
