@@ -86,7 +86,7 @@ module.exports = {
         client.sms.messages.create({
         to: reminder.phone,
         from: process.env.TWILIO_NUMBER,
-        body: 'Greetings, ' + reminder.username + '! This is a reminder to take your ' + reminder.medname + '!'
+        body: 'Greetings, ' + reminder.username + '! This is a reminder to take your ' + reminder.medname + '! Respond with anything to cancel!'
       }, function(err, message){
           if (!err){
             console.log('Success! The SID for this SMS message is:');

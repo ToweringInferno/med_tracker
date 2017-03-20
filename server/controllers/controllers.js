@@ -77,6 +77,15 @@ module.exports = {
       })
     },
 
+    reset: function() {
+      console.log('RESET CONTROL');
+      models.schedules.reset(function(err, count) {
+            if (err) {throw err}
+              console.log("RESET", count);
+              return count;
+          })
+    },
+
     createReminder: function(req, res) {
       var params = [req.body.medname, req.body.time, req.body.taken, req.session.user];
       models.schedules.createReminder(params, function (err, results) {
