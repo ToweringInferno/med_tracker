@@ -6,6 +6,7 @@ var db = require('./db');
 var session = require('express-session');
 var scheduler = require('./scheduler');
 var resetter = require('./resetter');
+require('dotenv').config();
 
 
 var app = express();
