@@ -20,6 +20,8 @@ DATABASE_USERNAME = 'root'
 DATABASE_PASSWORD = ''
 DATABASE = 'medschedules' ##You must create this database in mysql command line before running the app##
 
+##CHECK OUR ISSUES FOR IDEAS WE WANTED TO WORK ON##
+
 ##GOOD LUCK##
 
 
