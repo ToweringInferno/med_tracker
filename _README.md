@@ -4,11 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
-  - __Snack Master__: teamMember
-  - __Fight Master__: teamMember
+  - __Product Owner__: Michiya
+  - __Scrum Master__: Jordan
+  - __Development Team Members__: Bryam
 
 ## Table of Contents
 

@@ -1,5 +1,28 @@
 # Contributing
 
+
+##MOST IMPORTANT TO GET SET UP##
+
+NPM INSTALL (OBVI)
+
+You need to create a .env file, here is what it will contain:
+
+##SET UP A TWILIO ACCOUNT TO GET THE FOLLOWING##
+
+TWILIO_ACCOUNT_SID = ''
+TWILIO_AUTH_TOKEN = ''
+TWILIO_NUMBER = ''
+
+##When you deploy you must replace the following in your .env with the remote database you create##
+
+DATABASE_HOST = '127.0.0.1'
+DATABASE_USERNAME = 'root'
+DATABASE_PASSWORD = ''
+DATABASE = 'medschedules' ##You must create this database in mysql command line before running the app##
+
+##GOOD LUCK##
+
+
 ## General Workflow
 
 1. Fork the repo
@@ -53,7 +76,7 @@ These commands will help you do this:
 git checkout -b `your-branch-name`
 ```
 
-### Make commits to your feature branch. 
+### Make commits to your feature branch.
 
 Prefix each commit like so
   - (feat) Added a new feature
