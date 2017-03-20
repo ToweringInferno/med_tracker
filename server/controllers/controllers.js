@@ -53,7 +53,7 @@ module.exports = {
       })
   },
 
-  logout: function(req, res) {   
+  logout: function(req, res) {
     console.log('SERVER-CONTROLLER-USER-LOGOUT');
     utilities.endSession(req, res);
     // req.session.destroy(function() {
@@ -77,26 +77,26 @@ module.exports = {
       })
     },
 
-    post: function(req, res) {
+    createReminder: function(req, res) {
       var params = [req.body.medname, req.body.time, req.body.taken, req.session.user];
-      models.schedules.post(params, function (err, results) {
+      models.schedules.createReminder(params, function (err, results) {
         if (err) {throw err}
           res.sendStatus(201);
       })
     },
 
-    delete: function(req, res) {
+    deleteReminder: function(req, res) {
       var params = [req.body.time, req.session.user, req.body.meds_id];
-      models.schedules.delete(params, function (err, count) {
+      models.schedules.deleteReminder(params, function (err, count) {
         if (err) {throw err}
           res.sendStatus(200);
       })
     },
 
-    put: function(req, res) {
+    editReminder: function(req, res) {
       console.log('UPDATE REQ BODY', req.body);
       var params = [req.body.time, req.body.newTime];
-      models.schedules.put(params, function (err, count) {
+      models.schedules.editReminder(params, function (err, count) {
         if (err) {throw err}
           res.sendStatus(200);
       })
