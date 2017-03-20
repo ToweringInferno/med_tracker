@@ -15,15 +15,7 @@
 			<span class='glyphicon glyphicon-list-alt'></span>
 			<h1 class='schedule-title'>Daily Reminders</h1>
 			<button class="btn btn-primary text-center" style='margin:10px' ui-sref="input">Add New Reminder</button>
-			<!-- <input type='text' ng-model='search' placeholder='Search by Medication'> -->
 		</div>
-<!--
-		<div class="row">
-      <div class="search">
-				<input type="text" ng-model='search' class="form-control input-sm" maxlength="64" placeholder="Search" />
-				 <button type="submit" class="btn btn-primary btn-sm">Search</button>
-		  </div>
-	  </div> -->
 
 		<ul class='reminder-entries'>
 			<li ng-repeat="reminder in allReminders.reminders.data | orderBy:['taken', 'time']">
@@ -31,45 +23,35 @@
 				<div class='toggleStyle reminder-entry animated slideInUp' ng-class="{'alert-success': reminder.taken, 'alert-danger': !reminder.taken}">
 
 				  <!-- checkbox to toggle -->
-					<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index, [reminder.id, reminder.taken])"></button>
-					<span> At </span>
+				  <div name='reminder info'>
+						<button class="glyphicon glyphicon-check borderlessButton" ng-click="toggleTaken($index, [reminder.id, reminder.taken])"></button>
+						<span> At </span>
 
-					<!-- time of reminder -->
-					<label>{{ reminder.time }}</label>
+						<!-- time of reminder -->
+						<label>{{ reminder.time }}</label>
 
-					<span>take </span>
-					<!-- text of reminder -->
-					<label>{{ reminder.medname }}</label>
-
-
-					<!-- <div>
-					<nav class="navbar navbar-default" role="navigation">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#">A menu</a>
+						<span>take </span>
+						<!-- text of reminder -->
+						<label>{{ reminder.medname }}</label>
+						<button class="btn btn-xs btn-danger" style='float: right; margin: 10px'ng-click="isCollapsed = !isCollapsed">Options</button>
 						</div>
-						<div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
-							<ul class="nav navbar-nav">
-								<li><a href="#">Link 1</a></li>
-								<li><a href="#">Link 2</a></li>
-							</ul>
-						</div>
-					</nav>
-					</div> -->
 
-					<div class="options">
-						<button class="btn btn-xs btn-danger" style='float:right'ng-click="isCollapsed = !isCollapsed">Options</button>
+						<div class="options">
 						<hr>
 						<div uib-collapse="isCollapsed">
 							<div class="well well-lg animated fadeIn">
-								<label>Options for {{reminder.medname}}</label>
+								<label>Options for {{reminder.medname}}
+						      <button class='btn btn-danger' style='padding: 5px; margin: 0px 10px' ng-click='editHandler()' ng-hide='flag'>Change Time</button>
+						      <div ng-show='flag'>
+						      	<input ng-model='newtime' placeholder="Enter new time">
+						      	<button class='btn btn-xs btn-danger' ng-click='editReminder($index, newtime)'>Submit</button>
+						      </div>
+
+						      <button class='btn btn-danger text-center' style=' padding: 5px; margin: 0px 2px' ng-click="deleteReminder($index)">Delete</button>
+						      </label>
 
 								<div class='information' style='font-size: 14px'>
-									Learn About Interactions:
+									<h4>Learn About Interactions:</h4>
 									<a href='http://google.com/#q={{interaction}}&*'>
 									{{interaction}}
 									</a>
@@ -85,20 +67,10 @@
 										</div>
 								  </form>
 						    </div>
-
-						    <div>
-						      <button class='btn btn-xs' ng-click='editHandler()' ng-hide='flag'>Change Time</button>
-						      <div ng-show='flag'>
-						      	<input ng-model='newtime' placeholder="Enter new time">
-						      	<button class='btn btn-xs' ng-click='editReminder($index, newtime)'>Submit</button>
-						      </div>
-					      </div>
-
-						    <button class='btn btn-danger text-center' ng-click="deleteReminder($index)">Delete</button>
-						    <button class='btn btn-xs text-right' ng-click='popUp()'>Close</button>
-
 							</div>
 					</div>
+				</div>
+
 				</div>
 			</li>
 		</ul>

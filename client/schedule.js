@@ -113,6 +113,9 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 	};
 
 	$scope.editReminder = function($index, newtime) {
+
+    $scope.editHandler();
+
 		var updateObj = {
 			time: $scope.allReminders.reminders.data[$index].time,
 			newTime: newtime
@@ -134,7 +137,7 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 
   $scope.editHandler = function() {
       console.log('BEING HANDLED');
-      $scope.flag = true;
+      $scope.flag = !$scope.flag;
   };
 
   $scope.makeComparison = function(selectedDrug, otherDrug) {
