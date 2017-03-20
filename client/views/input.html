@@ -1,0 +1,50 @@
+<div id="input" class='container animated slideInDown'>
+
+<nav class='navbar navbar-default navbar-static-top'>
+      <div class='text-center'>
+          <ul class='nav navbar-nav nav-center text-center'>
+            <li><button class="btn btn-primary navbar-btn" style='margin:10px' ui-sref="schedule">Back To Reminders</button></li>
+            <!-- <li><button ngclick="logout()" style='margin:10px' class="btn btn-primary navbar-btn">Logout</button></li> -->
+          </ul>
+      </div>
+    </nav>
+
+<!-- 	<form name='inputForm'>
+    <div class="form-group">
+		  <input type='text' ng-model='reminder.medname' placeholder='Enter medication' required>
+    </div>
+
+    <div class="form-group">
+		  <input type='text' ng-model='reminder.time' placeholder='Enter the time you take it' required>
+    </div>
+    <button type='submit' ng-click='addReminder()'>Create New Reminder</button>
+	</form> -->
+
+	<div class='well well-lg text-center'>
+
+		<!-- title -->
+		<div class='row features'>
+			<span class='glyphicon glyphicon-pencil'></span>
+			<h1 class='input-title'>New Reminder</h1>
+		</div>
+
+		<form name='inputForm' ng-submit='signup()'>
+
+			<!-- medication -->
+			<div class='row form-group'>
+				<input type='text' ng-model='reminder.medname' class='col-xs-4 col-xs-offset-4 text-center' placeholder='Enter medication name...'>
+			</div>
+
+			<!-- time -->
+			<div class='row form-group'>
+        <div uib-timepicker ng-model="reminder.time" ng-change="changed()" hour-step="hstep" minute-step="mstep" class='col-xs-4 col-xs-offset-4 text-center' show-meridian="ismeridian">
+        </div>
+			</div>
+
+			<div class='row'>
+				<button type='submit' ng-click='addReminder()' class='btn btn-lg btn-primary col-xs-4 col-xs-offset-4'>Create New Reminder</button>
+			</div>
+		</form>
+	</div>
+
+</div>

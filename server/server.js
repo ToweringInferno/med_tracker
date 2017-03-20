@@ -3,17 +3,32 @@ var parser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
 var db = require('./db');
-var router = require('./routes.js');
+var session = require('express-session');
+var scheduler = require('./scheduler');
+var resetter = require('./resetter');
+
 
 var app = express();
 
-var port = process.env.PORT || 8080;
+console.log('PATH JOIN', path.join(__dirname, '../client'));
 
 app.use(parser.json());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../client')));
 
+app.use(session({
+  secret: 'kitty cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
+require('./routes.js')(app, express);
+
+var port = process.env.PORT || 8080;
 
 app.listen(port, function() {console.log ('Check out the party on port ' + port)});
 
-exports = module.exports = app;
+scheduler.start();
+resetter.start();
+
+module.exports = app;

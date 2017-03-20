@@ -1,0 +1,93 @@
+.logo {
+	height: 48px;
+}
+.title {
+	font-size: 36px;
+}
+.navigation {
+	padding: 5px;
+	background-color: #eeeeee;
+}
+
+.nav.nav-center {
+    margin:0 auto;
+    display: inline-block;
+    float:none;
+}
+
+.features .glyphicon {
+	font-size: 48px;
+	color: #5bc0de;
+}
+.input-title {
+	color: orange;
+}
+.signup-title {
+	color: blue;
+}
+.login-title {
+	color: green;
+}
+.schedule-title {
+	color: #23527c;
+}
+.schedule-greetings {
+	font-size: 22px;
+	color: #23527c;
+}
+
+input {
+	line-height: 2.5;
+	font-size: 18px;
+}
+
+.radius {
+	border-radius: 0.5rem;
+}
+
+.shadow {
+	box-shadow: #728099 0 1px 5px 0;
+}
+
+.addendum {
+	padding-top: 10px;
+}
+
+.reminder-entries li {
+	font-size: 20px;
+	display: block;
+  list-style: none;
+	/*border-bottom: .5px solid #ededed;*/
+}
+.reminder-entry {
+	border: 0.5px;
+	border-radius: 10px;
+	margin: 5px;
+	padding-left: 40px;
+/*	box-sizing: content-box;
+  -webkit-appearance: textfield;
+	border-radius: 0.5px;  */
+}
+
+/*.taken {*/
+	/*color: gray;*/
+/*	text-decoration: line-through;
+}*/
+
+.borderlessButton {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+
+/*.destroy {
+	border: none;
+}*/
+
+
+/*<span class='glyphicon glyphicon-list-alt'></span>*/
+
+/* glyphicon alt color #5bc0de */
