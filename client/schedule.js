@@ -99,11 +99,11 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
   // };
 
 
-	$scope.deleteReminder = function($index) {
-		var deleteTime = $scope.allReminders.reminders.data[$index].time;
-    var deleteMed = $scope.allReminders.reminders.data[$index].meds_id;
+	$scope.deleteReminder = function($index, params) {
 
-		Reminders.deleteOne({time: deleteTime, meds_id: deleteMed})
+    console.log('DELETE PARAMS', params);
+
+		Reminders.deleteOne({id: params[0], meds_id: params[1]})
 		  .then(function(response) {
 		  	$scope.getReminders();
 		  })
@@ -112,13 +112,15 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 			})
 	};
 
-	$scope.editReminder = function($index, newtime) {
+	$scope.editReminder = function($index, params) {
+
+    console.log('EDIT PARAMS', params);
 
     $scope.editHandler();
 
 		var updateObj = {
-			time: $scope.allReminders.reminders.data[$index].time,
-			newTime: newtime
+			id: params[0],
+			newTime: params[1]
 		};
 
 		Reminders.updateOne(updateObj)
