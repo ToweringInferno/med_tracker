@@ -39,7 +39,8 @@ angular.module('medTracker.input', ['medTracker.services', 'ui.bootstrap'])
 
   	var newReminder = {
         medname: $scope.reminder.medname,
-        time: formatTime
+        time: formatTime,
+        taken: false
       };
 
       console.log('NEW REMINDER', newReminder);

@@ -54,7 +54,7 @@ module.exports = {
           console.log('NOW', now);
           for (var i = 0; i < response.length; i++) {
             console.log('TAKEN?', response[i].taken);
-            if (response[i].taken === 0) {
+            if (response[i].taken === false) {
               var format = response[i].time.slice(0,5);
               if (format === now) {
                 reminders.push(response[i]);
@@ -98,7 +98,7 @@ module.exports = {
       })
     },
 
-    post: function (params, callback) {
+    createReminder: function (params, callback) {
       knex.insert({medname: params[0]}).into('meds')
         .then(function(id) {
           knex.insert({time: params[1], meds_id: id, taken: params[2], users_id: params[3]}).into('schedules')
@@ -111,7 +111,7 @@ module.exports = {
         })
     },
 
-    delete: function(params, callback) {
+    deleteReminder: function(params, callback) {
       knex('schedules').where({time: params[0], users_id: params[1]}).del()
         .then(function(count) {
           knex('meds').where({id: params[2]}).del()
@@ -125,7 +125,7 @@ module.exports = {
         })
     },
 
-    put: function(params, callback) {
+    editReminder: function(params, callback) {
       knex('schedules').where('time', params[0])
         .update({time: params[1]})
           .catch(function(err) {

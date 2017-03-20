@@ -21,11 +21,11 @@ module.exports = function (app, express) {
   app.get('/reminders', controllers.schedules.get);
   app.get('/', controllers.schedules.get);
 
-  app.post('/reminders', controllers.schedules.post);
+  app.post('/reminders', controllers.schedules.createReminder);
 
-  app.post('/delete', controllers.schedules.delete);
+  app.post('/delete', controllers.schedules.deleteReminder);
 
-  app.put('/reminders', controllers.schedules.put);
+  app.put('/reminders', controllers.schedules.editReminder);
 
   app.put('/toggleTaken', controllers.schedules.toggleTaken);
 
