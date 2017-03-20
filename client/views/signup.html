@@ -16,9 +16,9 @@
 			<!-- username -->
 			<div class='form-group text-left' ng-class="{ 'has-error' : signupForm.username.$invalid && !signupForm.username.$pristine }">
      		<label>Username</label>
-				<input type='text' name="username" ng-model='user.username' class='form-control' placeholder='Enter a username' ng-minlength="3" ng-maxlength="8" required>
+				<input type='text' name="username" ng-model='user.username' class='form-control' placeholder='Enter a username' ng-minlength="3" ng-maxlength="20" required>
         <p ng-show="signupForm.username.$error.minlength" class="help-block">Username must be greater than 3 characters.</p>
-        <p ng-show="signupForm.username.$error.maxlength" class="help-block">Username must be less than 8 characters.</p>
+        <p ng-show="signupForm.username.$error.maxlength" class="help-block">Username must be less than 20 characters.</p>
 			</div>
 
 			<!-- password -->
