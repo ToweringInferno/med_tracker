@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host : process.env.DATABASE_URL,
+    host : process.env.LOCAL_DB,
     user : 'root',
     password : '',
     database : 'medschedules'
