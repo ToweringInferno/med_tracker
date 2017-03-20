@@ -29,5 +29,8 @@ module.exports = function (app, express) {
 
   app.put('/toggleTaken', controllers.schedules.toggleTaken);
 
-
+  app.post('/message', function(req, res) {
+    console.log('RECEIVE TEXT', req.body);
+    res.sendStatus(200);
+  });
 };
