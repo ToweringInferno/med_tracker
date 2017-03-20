@@ -48,7 +48,7 @@ angular.module('medTracker.schedule', ['medTracker.services','ui.bootstrap'])
 				$scope.allReminders.reminders.data.forEach(function(reminder, i) {
           console.log('REMINDER TAKEN', reminder.taken);
 
-            $scope.allMeds.indexOf(reminder.medname) === -1 ? $scope.allMeds.push(reminder.medname) : console.log('Already exists')
+          $scope.allMeds.indexOf(reminder.medname) === -1 ? $scope.allMeds.push(reminder.medname) : console.log('Already exists')
 				})
 				console.log('MED NAMES', $scope.allMeds);
 			})
