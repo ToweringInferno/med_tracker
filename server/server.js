@@ -10,8 +10,6 @@ var resetter = require('./resetter');
 
 var app = express();
 
-console.log('PATH JOIN', path.join(__dirname, '../client'));
-
 app.use(parser.json());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../client')));
