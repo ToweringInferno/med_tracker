@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host : '127.0.0.1',
+    host : '//bfc3ee3ed401e0:8b0cf6f7@us-cdbr-iron-east-03.cleardb.net/heroku_7de08b021d07df4?reconnect=true',
     user : 'root',
     password : '',
     database : 'medschedules'
