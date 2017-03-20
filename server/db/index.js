@@ -3,10 +3,10 @@ var mysql = require('mysql');
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host : process.env.LOCAL_DB,
+    host : process.env.DATABASE_URL,
     user : 'root',
     password : '',
-    database : 'medschedules'
+    database : 'heroku_7de08b021d07df4'
   },
     useNullAsDefault: true
 });
