@@ -6,7 +6,7 @@ var knex = require('knex')({
     host : process.env.DATABASE_URL,
     user : 'root',
     password : '',
-    database : 'medschedules'
+    database : 'heroku_7de08b021d07df4'
   },
     useNullAsDefault: true
 });
