@@ -36,6 +36,10 @@
 	color: #23527c;
 }
 
+table.uib-timepicker {
+  margin: 0px 35px;
+}
+
 input {
 	line-height: 2.5;
 	font-size: 18px;
