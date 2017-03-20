@@ -54,9 +54,11 @@ module.exports = {
           console.log('NOW', now);
           for (var i = 0; i < response.length; i++) {
             console.log('TAKEN?', response[i].taken);
-            if (response[i].taken === false) {
+            if (response[i].taken === 0) {
+              console.log('REMINDER TRIGGERED');
               var format = response[i].time.slice(0,5);
               if (format === now) {
+                console.log('IT IS TIME');
                 reminders.push(response[i]);
               }
             }
