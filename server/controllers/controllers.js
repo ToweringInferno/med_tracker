@@ -95,7 +95,7 @@ module.exports = {
     },
 
     deleteReminder: function(req, res) {
-      var params = [req.body.time, req.session.user, req.body.meds_id];
+      var params = [req.body.id, req.body.meds_id];
       models.schedules.deleteReminder(params, function (err, count) {
         if (err) {throw err}
           res.sendStatus(200);
@@ -104,7 +104,7 @@ module.exports = {
 
     editReminder: function(req, res) {
       console.log('UPDATE REQ BODY', req.body);
-      var params = [req.body.time, req.body.newTime];
+      var params = [req.body.id, req.body.newTime];
       models.schedules.editReminder(params, function (err, count) {
         if (err) {throw err}
           res.sendStatus(200);

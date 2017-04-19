@@ -2,11 +2,12 @@ var express = require('express');
 var parser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
+require('dotenv').config();
 var db = require('./db');
 var session = require('express-session');
 var scheduler = require('./scheduler');
 var resetter = require('./resetter');
-require('dotenv').config();
+
 
 
 var app = express();
