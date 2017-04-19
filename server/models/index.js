@@ -54,9 +54,11 @@ module.exports = {
           console.log('NOW', now);
           for (var i = 0; i < response.length; i++) {
             console.log('TAKEN?', response[i].taken);
-            if (response[i].taken === false) {
+            if (response[i].taken === 0) {
+              console.log('REMINDER TRIGGERED');
               var format = response[i].time.slice(0,5);
               if (format === now) {
+                console.log('IT IS TIME');
                 reminders.push(response[i]);
               }
             }
@@ -86,7 +88,7 @@ module.exports = {
         client.sms.messages.create({
         to: reminder.phone,
         from: process.env.TWILIO_NUMBER,
-        body: 'Greetings, ' + reminder.username + '! This is a reminder to take your ' + reminder.medname + '!'
+        body: 'Greetings, ' + reminder.username + '! This is a reminder to take your ' + reminder.medname + '! Respond with anything to cancel!'
       }, function(err, message){
           if (!err){
             console.log('Success! The SID for this SMS message is:');
@@ -112,9 +114,9 @@ module.exports = {
     },
 
     deleteReminder: function(params, callback) {
-      knex('schedules').where({time: params[0], users_id: params[1]}).del()
+      knex('schedules').where({id: params[0]}).del()
         .then(function(count) {
-          knex('meds').where({id: params[2]}).del()
+          knex('meds').where({id: params[1]}).del()
             .catch(function(err) {
               callback(err);
             })
@@ -126,7 +128,7 @@ module.exports = {
     },
 
     editReminder: function(params, callback) {
-      knex('schedules').where('time', params[0])
+      knex('schedules').where('id', params[0])
         .update({time: params[1]})
           .catch(function(err) {
               callback(err);

@@ -33,7 +33,7 @@
 						<span>take </span>
 						<!-- text of reminder -->
 						<label>{{ reminder.medname }}</label>
-						<button class="btn btn-xs btn-danger" style='float: right; margin: 10px'ng-click="isCollapsed = !isCollapsed">Options</button>
+						<button class="btn btn-xs btn-danger" style='float: right; margin: 10px' ng-click="isCollapsed = !isCollapsed">Options</button>
 						</div>
 
 						<div class="options">
@@ -44,10 +44,10 @@
 						      <button class='btn btn-danger' style='padding: 5px; margin: 0px 10px' ng-click='editHandler()' ng-hide='flag'>Change Time</button>
 						      <div ng-show='flag'>
 						      	<input ng-model='newtime' placeholder="Enter new time">
-						      	<button class='btn btn-xs btn-danger' ng-click='editReminder($index, newtime)'>Submit</button>
+						      	<button class='btn btn-xs btn-danger' ng-click='editReminder($index, [reminder.id, newtime])'>Submit</button>
 						      </div>
 
-						      <button class='btn btn-danger text-center' style=' padding: 5px; margin: 0px 2px' ng-click="deleteReminder($index)">Delete</button>
+						      <button class='btn btn-danger text-center' style=' padding: 5px; margin: 0px 2px' ng-click="deleteReminder($index, [reminder.id, reminder.meds_id])">Delete</button>
 						      </label>
 
 								<div class='information' style='font-size: 14px'>

@@ -3,10 +3,10 @@ var mysql = require('mysql');
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host : process.env.LOCAL_DB,
-    user : 'root',
-    password : '',
-    database : 'medschedules'
+    host : process.env.DATABASE_HOST,
+    user : process.env.DATABASE_USERNAME,
+    password : process.env.DATABASE_PASSWORD,
+    database : process.env.DATABASE
   },
     useNullAsDefault: true
 });
@@ -52,21 +52,6 @@ knex.schema.hasTable('schedules').then(function(exists) {
   }
 });
 
-// knex.schema.alterTable('schedules', function(schedule) {
-//   schedule.boolean('taken').notNullable().defaultTo(0).alter();
-// });
-
 
 
 module.exports = knex;
-
-
-// var connection = mysql.createConnection({
-//   user: 'root',
-//   password: '',
-//   database: 'medschedules'
-// });
-
-// connection.connect();
-
-// module.exports = connection;

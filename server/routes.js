@@ -30,7 +30,14 @@ module.exports = function (app, express) {
   app.put('/toggleTaken', controllers.schedules.toggleTaken);
 
   app.post('/message', function(req, res) {
-    console.log('RECEIVE TEXT', req.body);
-    res.sendStatus(200);
+    console.log('RECEIVE TEXT', req);
+    controllers.schedules.reset()
+      .then(function(res) {
+        console.log('RESET');
+      })
+      .catch(function(err) {
+        console.error(err);
+      })
   });
+
 };
